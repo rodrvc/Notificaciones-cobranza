@@ -19,8 +19,10 @@ class CobranzaNotificacionConfiguracionesController extends AppController
      * @return \Cake\Http\Response|void
      */
     public function index()
-    {
+    {   
+        
         $this->paginate = [
+            
             'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
         ];
 

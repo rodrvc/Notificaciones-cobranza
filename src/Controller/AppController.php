@@ -45,16 +45,56 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth' , [
+            'authorize' => ['Controller'],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                    ],
+                    'finder' => 'auth'
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authError' => 'Ingrese sus datos',
+            'loginRedirect' => [
+                'controller' => 'Users',
+                'action' => 'home'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+    }
 
-        $session = $this->getRequest()->getSession();
-        
-        $session->write('User.id', 1 );
-        $session->write('cliente.id', 1 );
 
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
+
+    public function beforeRender(Event $event)
+    {
+        if (!array_key_exists('_serialize', $this->viewVars) &&
+            in_array($this->response->type(), ['application/json', 'application/xml'])
+        ) {
+            $this->set('_serialize', true);
+        }
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->set('current_user', $this->Auth->user());
+    }
+
+    public function isAuthorized($user)
+    {
+        if(isset($user['role']) and $user['role'] === 'admin')
+        {
+            return true;
+        }
+
+        return false;
     }
 }
