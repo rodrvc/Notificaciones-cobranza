@@ -45,56 +45,59 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth' , [
-            'authorize' => ['Controller'],
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'email',
-                    ],
-                    'finder' => 'auth'
-                ]
-            ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'authError' => 'Ingrese sus datos',
-            'loginRedirect' => [
-                'controller' => 'Users',
-                'action' => 'home'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'unauthorizedRedirect' => $this->referer()
-        ]);
+
+       
+
+        // $this->loadComponent('Auth' , [
+        //     'authorize' => ['Controller'],
+        //     'authenticate' => [
+        //         'Form' => [
+        //             'fields' => [
+        //                 'username' => 'email',
+        //             ],
+        //             'finder' => 'auth'
+        //         ]
+        //     ],
+            // 'loginAction' => [
+            //     'controller' => 'Users',
+            //     'action' => 'login'
+            // ],
+            // 'authError' => 'Ingrese sus datos',
+            // 'loginRedirect' => [
+            //     'controller' => 'Users',
+            //     'action' => 'home'
+            // ],
+            // // 'logoutRedirect' => [
+            // //     'controller' => 'Users',
+            // //     'action' => 'login'
+            // // ],
+            // // 'unauthorizedRedirect' => $this->referer()
+        // ]);
     }
 
 
 
-    public function beforeRender(Event $event)
-    {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
-        }
-    }
+    // public function beforeRender(Event $event)
+    // {
+    //     if (!array_key_exists('_serialize', $this->viewVars) &&
+    //         in_array($this->response->type(), ['application/json', 'application/xml'])
+    //     ) {
+    //         $this->set('_serialize', true);
+    //     }
+    // }
 
-    public function beforeFilter(Event $event)
-    {
-        $this->set('current_user', $this->Auth->user());
-    }
+    // public function beforeFilter(Event $event)
+    // {
+    //     $this->set('current_user', $this->Auth->user());
+    // }
 
-    public function isAuthorized($user)
-    {
-        if(isset($user['role']) and $user['role'] === 'admin')
-        {
-            return true;
-        }
+    // public function isAuthorized($user)
+    // {
+    //     if(isset($user['role']) and $user['role'] === 'admin')
+    //     {
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 }

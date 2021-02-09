@@ -11,7 +11,8 @@ use App\Controller\AppController;
  * @method \App\Model\Entity\CobranzaNotificacionConfiguracione[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class CobranzaNotificacionConfiguracionesController extends AppController
-{
+{   
+
 
     /**
      * Index method
@@ -19,40 +20,21 @@ class CobranzaNotificacionConfiguracionesController extends AppController
      * @return \Cake\Http\Response|void
      */
     public function index()
+
+    
     {   
         
         $this->paginate = [
-            
+            'conditions' => ['general_maestro_cliente_id' => 1],
             'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
         ];
 
 
-        ///add
-        $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->newEntity();
-        if ($this->request->is('post')) {
-            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
-            if ($this->CobranzaNotificacionConfiguraciones->save($cobranzaNotificacionConfiguracione)) {
-                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The cobranza notificacion configuracione could not be saved. Please, try again.'));
-        }
-        
-        $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
-        $generalMaestroClientes = $this->CobranzaNotificacionConfiguraciones->GeneralMaestroClientes->find('list', ['limit' => 200]);
-        $cobranzaNotificacionTipos = $this->CobranzaNotificacionConfiguraciones->CobranzaNotificacionTipos->find('list', ['limit' => 200]);
-
-        $this->set(compact('cobranzaNotificacionConfiguracione', 'generalUsers', 'generalMaestroClientes', 'cobranzaNotificacionTipos'));
-        //end add
-
-
-
-            
-
         $cobranzaNotificacionConfiguraciones = $this->paginate($this->CobranzaNotificacionConfiguraciones);
-
+        
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
+        $this->set(compact('greeting'));
+        
     }
 
     /**
@@ -65,6 +47,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
     public function view($id = null)
     {
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
+          
             'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
         ]);
 
@@ -139,5 +122,9 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function email(){
+
     }
 }

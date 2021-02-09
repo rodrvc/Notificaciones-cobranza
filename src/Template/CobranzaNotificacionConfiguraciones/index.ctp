@@ -8,6 +8,7 @@
 
 
 <div class="" >
+<!-- <h1><?=$greeting ?></h1> -->
 <div class="panel panel-default col-md-2" id="actions-sidebar">
   <!-- Default panel contents -->
 

@@ -197,3 +197,15 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+
+
+Configure::write(
+    'Company',
+    array(
+        'name' => 'Pizza, Inc.',
+        'slogan' => 'Pizza for your body and soul'
+    )
+);
+
+Configure::read('Company.name');  

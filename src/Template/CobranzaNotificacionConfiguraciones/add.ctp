@@ -37,7 +37,7 @@
                 echo $this->Form->control('asunto');
             ?>
         </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->button(__('Enviar')) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>

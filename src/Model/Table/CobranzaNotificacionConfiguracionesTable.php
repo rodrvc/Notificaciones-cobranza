@@ -89,6 +89,8 @@ class CobranzaNotificacionConfiguracionesTable extends Table
         return $validator;
     }
 
+
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -104,4 +106,17 @@ class CobranzaNotificacionConfiguracionesTable extends Table
 
         return $rules;
     }
+
+ 
+
+    // public function beforeFind($event, $query, $options, $primary)
+    // {
+    
+    //     $query->where(['general_maestro_cliente_id' => 1]);
+    
+    //     return $query;
+    // }
+    
+
+
 }
