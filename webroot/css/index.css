@@ -1,0 +1,22 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+} 
+
+.side {
+    max-width: 300px    ;
+}
+
+.frm {
+    max-width: 500px    ;
+}
+
+
+
+
+/* 
+@media (max-width: 835px) {
+    .flex {
+        flex-flow: row wrap;
+    }
+  } */
