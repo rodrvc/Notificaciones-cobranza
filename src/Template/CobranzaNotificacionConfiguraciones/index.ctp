@@ -8,7 +8,7 @@
 
 
 <div class="" >
-<!-- <h1><?=$greeting ?></h1> -->
+
 <div class="panel panel-default col-md-2" id="actions-sidebar">
   <!-- Default panel contents -->
 
@@ -53,7 +53,7 @@
 
 
 
-
+<?php phpinfo() ?>
 <div class="container  col-md-8 col-md-offset-1">
     <h3><?= __('Cobranza Notificacion Configuraciones') ?></h3>
     <table class="table table-striped table-bordered" cellpadding="0" cellspacing="0">

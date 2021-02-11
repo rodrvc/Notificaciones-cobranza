@@ -18,6 +18,11 @@ class FactDtesProductoController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+   
+
+
+
+
     public function index()
     {
         $factDtesProducto = $this->paginate($this->FactDtesProducto);

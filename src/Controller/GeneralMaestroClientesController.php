@@ -44,6 +44,17 @@ class GeneralMaestroClientesController extends AppController
         $this->set('generalMaestroCliente', $generalMaestroCliente);
     }
 
+
+    public function buscarCliente($id = null)
+    {
+        $generalMaestroCliente = $this->GeneralMaestroClientes->get($id, [
+            'contain' => ['GeneralMaestroPersonas', 'CobranzaNotificacionConfiguraciones', 'FactDtes', 'GeneralClasificacionRutMaestroPersonas']
+        ]);
+
+        $this->set('generalMaestroCliente', $generalMaestroCliente);
+        return $generalMaestroCliente;
+    }
+
     /**
      * Add method
      *
