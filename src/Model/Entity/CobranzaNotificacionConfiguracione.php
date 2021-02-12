@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property string|null $asunto
+ * @property string|null $dia_notificacion
  *
  * @property \App\Model\Entity\GeneralUser $general_user
  * @property \App\Model\Entity\GeneralMaestroCliente $general_maestro_cliente
@@ -43,6 +44,7 @@ class CobranzaNotificacionConfiguracione extends Entity
         'created' => true,
         'modified' => true,
         'asunto' => true,
+        'dia_notificacion' => true,
         'general_user' => true,
         'general_maestro_cliente' => true,
         'cobranza_notificacion_tipo' => true

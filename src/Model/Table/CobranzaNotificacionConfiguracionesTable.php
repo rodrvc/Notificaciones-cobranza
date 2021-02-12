@@ -86,10 +86,13 @@ class CobranzaNotificacionConfiguracionesTable extends Table
             ->maxLength('asunto', 255)
             ->allowEmpty('asunto');
 
+        $validator
+            ->scalar('dia_notificacion')
+            ->maxLength('dia_notificacion', 45)
+            ->allowEmpty('dia_notificacion');
+
         return $validator;
     }
-
-
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -106,17 +109,4 @@ class CobranzaNotificacionConfiguracionesTable extends Table
 
         return $rules;
     }
-
- 
-
-    // public function beforeFind($event, $query, $options, $primary)
-    // {
-    
-    //     $query->where(['general_maestro_cliente_id' => 1]);
-    
-    //     return $query;
-    // }
-    
-
-
 }

@@ -27,6 +27,7 @@ class CobranzaNotificacionConfiguracionesFixture extends TestFixture
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'asunto' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'dia_notificacion' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
             'fk_cobranza_notif_conf_cobranza_notif_tipos_1' => ['type' => 'index', 'columns' => ['cobranza_notificacion_tipo_id'], 'length' => []],
             'general_user_id' => ['type' => 'index', 'columns' => ['general_user_id'], 'length' => []],
@@ -61,9 +62,10 @@ class CobranzaNotificacionConfiguracionesFixture extends TestFixture
                 'dias' => 1,
                 'activo' => 1,
                 'mensaje' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => '2021-02-05 10:32:09',
-                'modified' => '2021-02-05 10:32:09',
-                'asunto' => 'Lorem ipsum dolor sit amet'
+                'created' => '2021-02-12 09:33:33',
+                'modified' => '2021-02-12 09:33:33',
+                'asunto' => 'Lorem ipsum dolor sit amet',
+                'dia_notificacion' => 'Lorem ipsum dolor sit amet'
             ],
         ];
         parent::init();
