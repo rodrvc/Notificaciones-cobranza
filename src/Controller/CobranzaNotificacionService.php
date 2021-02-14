@@ -16,7 +16,7 @@ class NotificacionSendController extends AppController
     public function getFacturesByProvider(){
         $factura = new FactDtesController();
         $cliente = new GeneralMaestroClientesController();
-
+        
         
     }
 
