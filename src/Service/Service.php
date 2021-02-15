@@ -41,96 +41,100 @@ class Service extends AppController
         return $result;
     } 
 
-    public function evaluatedFactures(){
-   
-        $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
-        
-        //****** $queryPlantilla->enableHydration(false);
-        //****$resultPlantilla = $queryPlantilla->all();
-       
 
+
+    public function ObtenerCobranzaNotificacionConfiguraciones(){
+        $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
         $contador = 0; 
-        //TODO obtener todas las plantillas activas
         $queryPlantilla = $plantillasTable->find('all')
         ->contain(['GeneralMaestroClientes'])
         ->contain(['GeneralMaestroClientes.GeneralMaestroPersonas'])
-        
         ->where([ 'activo' => 1])
-        //->order(['cobranza_notificacion_tipo_id' => 'DESC', 'dias' => 'DESC']);
         ->order(['CobranzaNotificacionConfiguraciones.id'=> 'ASC']);
         $plantillas = $queryPlantilla->all();
-        //TODO extraer la CONFIGURACION de dias y el tipo de vencimiento
-        
-        //TODO Traer todas las factutas
-      
-        //$facturasAndClient = $this->obtenerFacturasSegunVencimiento(1 , 2)->all();
-        // $query = $this->FactDtes->find('all')->contain(['GeneralMaestroClientes'])->where(['general_maestro_cliente_id' => $clienteId]);
-        // $lista = $query->all();
+        return $plantillas; 
+    }
 
-    
-        //return $facturasAndClient;
+    public function evaluatedFactures(){
+   
         
-      
-        $data = array(
-            "empresa" => array(),
-        );
+        $plantillas = $this->ObtenerCobranzaNotificacionConfiguraciones();
+
+
+        $data = array();
         $testResult; 
 
         foreach ($plantillas as $key => $configuracion) {
-            $configuracion; // principal 
+            
+            
+            if (!$configuracion->activo == 1 ) {
+                continue; 
+            }
+
             $tipo = $configuracion->cobranza_notificacion_tipo_id;
             $fecha_actual = date("y-m-d");
             $dias = $configuracion->dias;
             $dia_envio_notificacion = $configuracion->dia_notificacion;
-            $todayText = date('l');
+            $todayText = date('l'); //se obtiene fecha actual
             
             
             if($dia_envio_notificacion == $todayText){
                 if ($tipo == 1 ){
                     $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
                     $sql =  
-                    $this->obtenerFacturasSegunVencimiento( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id );
+                    $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
                     $sql->enableHydration(false);
                     $result = $sql->toList();
                     
-                    //DATA TEXT GENERAL                                     
-                    $data[$configuracion->id]["mensaje"] = $configuracion->mensaje;
-                    $data[$configuracion->id]["nombre"] = $configuracion->general_maestro_cliente->nombre;
-                    $data[$configuracion->id]["empresa"]["id"] = $result[0]["general_maestro_persona_id"] ;
-                    $data[$configuracion->id]["empresa"]["razon_social"] = $result[0]["general_maestro_persona"]["razon_social"];
-                    $data[$configuracion->id]["empresa"]["rut"] = $result[0]["general_maestro_persona"]["rut"];
-                    $data[$configuracion->id]["empresa"]["fact_dtes"] = $result;
-                    
-                    //$data[$configuracion->id]["general_maestro_persona"] = $sql 
+                    //DATA TEXT GENERAL     
+                    // $data[$configuracion->id]["mensaje"] = $configuracion->mensaje;
+                    // $data[$configuracion->id]["asunto"] = $configuracion->asunto;
+                    // $data[$configuracion->id]["nombre"] = $configuracion->general_maestro_cliente->nombre;
+                    // $data[$configuracion->id]["empresa"]["id"] = $result[0]["general_maestro_persona_id"] ;
+                    // $data[$configuracion->id]["empresa"]["razon_social"] = $result[0]["general_maestro_persona"]["razon_social"];
+                    // $data[$configuracion->id]["empresa"]["rut"] = $result[0]["general_maestro_persona"]["rut"];
+                    // $data[$configuracion->id]["empresa"]["fact_dtes"] = $result;
 
+                    $data[$configuracion->id] = $this->respuestaOrdenada($result , $configuracion);
+                    
                  
+                }
 
-                    
-                    // $info = array(
-                    //     "id" => $configuracion->general_maestro_cliente_id,
-                    //     "nombre" => 
-                    //     "mensaje" => $configuracion->mensaje, 
-                        
-                        
-                    // );
-
+                if($tipo == 2 ) {
+                    $vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
+                    $sql =  
+                    $this->getOverdueInvoces($vencimiento , $configuracion->general_maestro_cliente_id );
+                    $sql->enableHydration(false);
+                    $result = $sql->toList();
 
 
-                  
-                   
-                    // $associativeArray = array();
-                    // foreach ($sql as $key => $row) {
-                    // // Put the values into the array, no other variables needed
-                    //     $data[] = $row;
-                    // }
+                    // $data[$configuracion->id]["mensaje"] = $configuracion->mensaje;
+                    // $data[$configuracion->id]["asunto"] = $configuracion->asunto;
+                    // $data[$configuracion->id]["tipo"] = "Vencimiento Factura";
+                    // $data[$configuracion->id]["nombre"] = $configuracion->general_maestro_cliente->nombre;
+                    // $data[$configuracion->id]["empresa"]["id"] = $result[0]["general_maestro_persona_id"] ;
+                    // $data[$configuracion->id]["empresa"]["razon_social"] = $result[0]["general_maestro_persona"]["razon_social"];
+                    // $data[$configuracion->id]["empresa"]["rut"] = $result[0]["general_maestro_persona"]["rut"];
+                    // $data[$configuracion->id]["empresa"]["fact_dtes"] = $result;
+
+                    $data[$configuracion->id] = $this->respuestaOrdenada($result , $configuracion);
 
                 }
-                // else 
-                // {
-                //     $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."- ".$dias." days"));
-                //     $testResult =  $data[] = $this->obtenerFacturasVencidas( $fecha_actual,  $fecha_rango_vencimiento )->all();
-                //     $data[] = $testResult;
+
+                // if ($tipo == 3) {
+                //     $fechaFin = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
+                //     $sql =  
+                //     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
+                //     $sql->enableHydration(false);
+                //     $result = $sql->toList();
+
+                //     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
+
                 // }
+
+
+
+           
             }
         }
         return $data;
@@ -208,7 +212,7 @@ class Service extends AppController
         return $queryFact; 
     }
 
-    public function obtenerFacturasSegunVencimiento($dia_Actual, $fecha_rango_vencimiento, $empresa ){
+    public function obtenerFacturasEntreFechas($dia_Actual, $fecha_rango_vencimiento, $empresa ){
         
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
@@ -223,22 +227,20 @@ class Service extends AppController
     }
 
     
-    public function obtenerFacturasVencidas($dia_Actual, $fecha_rango_vencimiento){
-
+    public function getOverdueInvoces ( $posteriorVencimiento,  $empresa ){
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas'])
-            ->where(['FactDtes.fecha_vencimiento <' => $dia_Actual ])
-            ->select(['folio', 'general_maestro_persona_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo' ])
-            ->where(['FactDtes.fecha_vencimiento <' => $fecha_rango_vencimiento  ])
-            ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]);
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+            ->where(['FactDtes.fecha_vencimiento <' => $posteriorVencimiento ])
+            ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
+            ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
             return $query;
 
     }
 
 
     public function obtenerClientes(){
-             
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
         $query = $facturasEmitidas->find()->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
@@ -248,4 +250,25 @@ class Service extends AppController
             return $query;
 
     }
+
+
+
+    public function respuestaOrdenada($conf , $configuracionActual ){
+        $respuesta = array();
+        
+        $respuesta["mensaje"] = $configuracionActual->mensaje;
+        $respuesta["asunto"] = $configuracionActual->asunto;
+        $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
+        $respuesta["tipo"] = ($configuracionActual->cobranza_notificacion_tipo_id == 1) ? "Facturas Prontas a Vencer " : "Facturas Vencidas" ;
+        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona_id"] ;
+        $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
+        $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
+        $respuesta["empresa"]["fact_dtes"] = $conf;
+
+        return $respuesta;  
+
+    }
+
+
+    
 }
