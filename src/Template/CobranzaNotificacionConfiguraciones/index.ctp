@@ -10,7 +10,7 @@
 <div class="" >
 
 
-<div class="panel panel-default col-md-2" id="actions-sidebar">
+<div class="panel panel-default m-6 side" id="actions-sidebar">
   <!-- Default panel contents -->
 
   <div class="panel-heading">Actions</div>
