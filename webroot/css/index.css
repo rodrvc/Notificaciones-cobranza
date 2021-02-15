@@ -15,8 +15,22 @@
     max-width: 800px;
 }
 
+.space-btwn {
+    align-content: space-around;
+}
+
+.mensaje { 
+
+}
 
 
+.mb-10 {
+    margin-bottom: 60px;
+}
+
+.index-grid {
+    max-width: 800px;
+} 
 
 /* 
 @media (max-width: 835px) {

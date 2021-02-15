@@ -22,12 +22,13 @@
             <li class="list-group-item"><?= $this->Html->link(__('New Cobranza Notificacion Tipo'), ['controller' => 'CobranzaNotificacionTipos', 'action' => 'add']) ?> </li>
         </ul>
     </div>
-    <div class="cobranzaNotificacionConfiguraciones m-6 container preview ">
-        <h3><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
+    <div class="cobranzaNotificacionConfiguraciones m-6 container preview">
+
+    <h3><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
         <hr>
-        <table class="vertical-table">
-            <tr>
-                <th scope="row"><?= __('General User') ?></th>
+        <table class="table vertical-table">
+            <tr class="col">
+                <th scope="row m-6"><?= __('General User') ?></th>
                 <td><?= $cobranzaNotificacionConfiguracione->has('general_user') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_user->name, ['controller' => 'GeneralUsers', 'action' => 'view', $cobranzaNotificacionConfiguracione->general_user->id]) : '' ?></td>
             </tr>
             <tr>
@@ -63,9 +64,39 @@
                 <td><?= $cobranzaNotificacionConfiguracione->activo ? __('Yes') : __('No'); ?></td>
             </tr>
         </table>
-        <div class="row">
-            <h4><?= __('Mensaje') ?></h4>
+        <hr>
+        <div class="container   mb-10 preview">
+           
+            
+            <h3 class="mb-10 "><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
             <?= $this->Text->autoParagraph(h($cobranzaNotificacionConfiguracione->mensaje)); ?>
         </div>
-    </div>
 </div>  
+<div class="cobranzaNotificacionConfiguraciones m-6 container preview ">
+     
+</div>
+
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

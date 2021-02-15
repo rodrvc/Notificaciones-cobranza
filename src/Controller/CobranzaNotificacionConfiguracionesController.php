@@ -55,6 +55,26 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
     }
 
+    public function viewconf($id = null)
+    {
+        $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
+            'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
+        ]);
+
+        $service = new Service();
+        $configuration = $service->evaluatedFactures();
+
+        $this->set('configuration', $configuration); 
+        $this->set('id', $id); 
+        $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
+    }
+
+
+
+
+
+
+
     /**
      * Add method
      *
