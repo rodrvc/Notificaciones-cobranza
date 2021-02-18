@@ -38,9 +38,6 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
         $this->set(compact('jsonCobranzas'));
-
-       
-
     }
 
     /**

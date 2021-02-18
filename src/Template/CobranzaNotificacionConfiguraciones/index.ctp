@@ -48,13 +48,16 @@
                     <td><?= $cobranzaNotificacionConfiguracione->has('general_maestro_cliente') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_maestro_cliente->nombre, ['controller' => 'GeneralMaestroClientes', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_maestro_cliente->logo ]) : '' ?></td>
                     <td><?= $cobranzaNotificacionConfiguracione->has('cobranza_notificacion_tipo') ? $this->Html->link($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre, ['controller' => 'CobranzaNotificacionTipos', 'action' => 'view', $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre]) : '' ?></td>
                     <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->dias) ?></td>
-                    <td><?= h($cobranzaNotificacionConfiguracione->activo) ?></td>
+                    <td><?= h( $cobranzaNotificacionConfiguracione->activo == 1 ? "Activado" : "No Activado") ?></td>
                     <!-- <td><?= h($cobranzaNotificacionConfiguracione->created) ?></td> -->
                     <td><?= h($cobranzaNotificacionConfiguracione->modified) ?></td>
                     <td><?= h($cobranzaNotificacionConfiguracione->asunto) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $cobranzaNotificacionConfiguracione->id ], ['class' => 'btn btn-default ']) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cobranzaNotificacionConfiguracione->id] , ['class' => 'btn btn-default ']) ?>
+                        <?= $this->Html->link('Ver', '#myModal'.$cobranzaNotificacionConfiguracione->id, array(
+                            'data-toggle' => 'modal',
+                            'class' => 'btn btn-primary'
+                        )) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cobranzaNotificacionConfiguracione->id] , ['class' => 'btn btn-primary ']) ?>
                         <?= $this->Form->postLink(__('Delete') , ['action' => 'delete', $cobranzaNotificacionConfiguracione->id ], ['confirm' => __('Are you sure you want to delete # {0}?', $cobranzaNotificacionConfiguracione->id), 'class' => 'btn btn-danger'] )?>
                     </td>
                 </tr>
@@ -72,78 +75,75 @@
                 <?= $this->Paginator->next(__('next') . ' >') ?>
                 <?= $this->Paginator->last(__('last') . ' >>') ?>
             </ul>
-            <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+            <p><?= $this->Paginator->counter(['format' => __('Pagina {{page}} de {{pages}}, Mostrando {{current}} datos de {{count}} en total')]) ?></p>
         </div>
     </div>
 </div>
 
+
+<!-- JQWIDGET DECLARE DATA -->
 <script>
-             <?php echo ' var url = '.$jsonCobranzas.'' ?>
+    <?php echo ' var url = '.$jsonCobranzas.'' ?>
 </script> 
 <?php echo $this->Html->script('grid'); ?> 
 
 
-
-
-
-
-<!-- MODAL -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal8">
-  Launch demo modal
-</button>
-
 <!-- Modal -->
 <?php foreach ($cobranzaNotificacionConfiguraciones as $cobranzaNotificacionConfiguracione): ?>
-<div class="modal fade" id="<?= "myModal".$cobranzaNotificacionConfiguracione->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<div class="modal fade" id="<?= "myModal" . $cobranzaNotificacionConfiguracione->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 80%"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Vista Plantilla <?= $cobranzaNotificacionConfiguracione->asunto ?></h4>
+            </div>
+      <!-- PREVIEW MESAJE -->
+        <div class="modal-body">
+            <div class="container">
+                <?= $cobranzaNotificacionConfiguracione->mensaje ?>
+
+
+            <!-- DTES OF DETAILS -->
+                
+                <div class="table-responsive mt-10">
+                    <table class="table table-bordered"> 
+                        <thead> 
+                            <tr> 
+                                <th>#</th> 
+                                <th>Folio</th> 
+                                <th>fecha Vencimiento</th> 
+                                <th>Diferencia plazo</th> 
+                            </tr> 
+                        </thead> 
+                        <tbody> 
+                            <tr> 
+                                <th scope="row">1</th> 
+                                    <td></td> 
+                                    <td></td> 
+                                    <td></td> 
+                                </tr> 
+                            <tr> 
+                                <th scope="row">2</th> 
+                                    <td></td> 
+                                    <td></td> 
+                                    <td></td> 
+                            </tr> 
+                            <tr> 
+                                <th scope="row">3</th> 
+                                    <td></td> 
+                                    <td></td> 
+                                    <td></td> 
+                            </tr> 
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
     </div>
   </div>
 </div>
 <?php endforeach; ?>
 
-
-
-
-
-
-
-
-
-
-
-<!-- ANOTHER MODAL -->
-<?php echo $this->Html->link('Lista', '#list', array(
-                            'data-toggle' => 'modal',
-                            'class' => 'btn btn-danger'
-                        )); ?>
-
-
-<
-
-
-<div class="modal fade" id="list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog" style="width: 80%">
-        <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                 <h4 class="modal-title" id="myModalLabel">Título da modal</h4>
-             </div>
-             <div class="modal-body">
-                         Conteúdo da Modal           
-             </div>
-         </div>
-     </div>
-</div>

@@ -48,6 +48,25 @@
         <fieldset>
             <legend><?=__('Edit Cobranza Notificacion Configuracione') ?></legend>
             <?php
+
+echo $this
+    ->Form
+    ->control('asunto');
+// echo $this->Form->control('mensaje');
+echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' . $cobranzaNotificacionConfiguracione->mensaje . '
+                </textarea>
+
+                <script>
+                // Replace the <textarea id="mensaje"> with a CKEditor 4
+                // instance, using default configuration.
+                    CKEDITOR.replace( "mensaje" );
+                    console.log("this is a mensaje")
+
+                    
+                 </script>';
+
+echo '<h3 class="mt-10">Configuraciones</h3> <hr>' ;
+
 echo $this
     ->Form
     ->control('general_user_id', ['options' => $generalUsers]);
@@ -62,24 +81,15 @@ echo $this
 echo $this
     ->Form
     ->control('dias');
+    // DAYS TRANSLATE
+    $sizes = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
+echo $this->Form->control('dia_notificacion', ['options' => $sizes]);  // translate values
 echo $this
     ->Form
     ->control('activo');
-// echo $this->Form->control('mensaje');
-echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' . $cobranzaNotificacionConfiguracione->mensaje . '
-                </textarea>
 
-                <script>
-                // Replace the <textarea id="mensaje"> with a CKEditor 4
-                // instance, using default configuration.
-                    CKEDITOR.replace( "mensaje" );
-                    console.log("this is a mensaje")
 
-                    
-                 </script>';
-echo $this
-    ->Form
-    ->control('asunto');
+
 ?>
         </fieldset>
         <?=$this
@@ -89,4 +99,5 @@ echo $this
     ->Form
     ->end() ?>
     </div>
+    
 </div>

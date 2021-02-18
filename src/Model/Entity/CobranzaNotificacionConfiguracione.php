@@ -47,6 +47,7 @@ class CobranzaNotificacionConfiguracione extends Entity
         'dia_notificacion' => true,
         'general_user' => true,
         'general_maestro_cliente' => true,
-        'cobranza_notificacion_tipo' => true
+        'cobranza_notificacion_tipo' => true,
+        'dia_notificacion' => true
     ];
 }

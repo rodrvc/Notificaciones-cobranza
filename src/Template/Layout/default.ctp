@@ -118,8 +118,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     
     
-        <footer>
+    <footer>
             
-        </footer>
+    </footer>
     </body>
 </html>

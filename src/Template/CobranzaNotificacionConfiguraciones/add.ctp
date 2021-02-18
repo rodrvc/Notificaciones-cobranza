@@ -5,7 +5,7 @@
  */
 ?>
 
-<?php echo $session ?>
+
 <?php echo $this->Html->script('ckeditor/ckeditor'); ?> 
 <div class="flex">
     <div class="panel panel-default m-6 side" id="actions-sidebar">
@@ -31,8 +31,11 @@
                 echo $this->Form->control('general_user_id', ['options' => $generalUsers, 'class' => 'form-control'] );
                 echo $this->Form->control('general_maestro_cliente_id', ['options' => $generalMaestroClientes]);
                 echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
-                echo $this->Form->control('dias');
+                echo $this->Form->control('dias', ['input' , 'min' => '0' ]);              
                 echo $this->Form->control('activo');
+                $sizes = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
+                echo $this->Form->control('dia_notificacion', ['options' => $sizes]);  
+                echo $this->Form->control('asunto' );
                 // echo $this->Form->control('mensaje' );
                 echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">
                 This is my textarea to be replaced with CKEditor 4.
@@ -47,7 +50,7 @@
                     var url = [] ; 
                  </script>';
 
-                echo $this->Form->control('asunto');
+                
             ?>
         </fieldset>
         <?= $this->Form->button(__('Enviar')) ?>
