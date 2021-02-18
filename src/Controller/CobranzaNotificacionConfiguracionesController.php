@@ -25,15 +25,19 @@ class CobranzaNotificacionConfiguracionesController extends AppController
             'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
         ];
         $cobranzaNotificacionConfiguraciones = $this->paginate($this->CobranzaNotificacionConfiguraciones);
-
+        $jsonCobranzas = json_encode($cobranzaNotificacionConfiguraciones);
 
         $service = new Service();
         $result = $service->evaluatedFactures();
+
         echo '<pre>';
         print_r($result);
         echo '</pre>';
+
+        //print_r($jsonCobranzas);
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
+        $this->set(compact('jsonCobranzas'));
 
        
 
@@ -67,6 +71,8 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $this->set('configuration', $configuration); 
         $this->set('id', $id); 
         $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
+
+
     }
 
 

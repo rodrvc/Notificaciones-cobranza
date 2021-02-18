@@ -4,11 +4,12 @@
 } 
 
 .side {
-    max-width: 300px    ;
+    max-width: 400px    ;
+    min-width: 300px;
 }
 
 .frm {
-    max-width: 500px    ;
+    max-width: 800px    ;
 }
 
 .preview {

@@ -200,12 +200,3 @@ Type::build('timestamp')
 
 
 
-Configure::write(
-    'Company',
-    array(
-        'name' => 'Pizza, Inc.',
-        'slogan' => 'Pizza for your body and soul'
-    )
-);
-
-Configure::read('Company.name');  

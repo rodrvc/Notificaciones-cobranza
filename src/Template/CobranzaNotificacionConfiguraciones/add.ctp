@@ -6,7 +6,7 @@
 ?>
 
 <?php echo $session ?>
-
+<?php echo $this->Html->script('ckeditor/ckeditor'); ?> 
 <div class="flex">
     <div class="panel panel-default m-6 side" id="actions-sidebar">
         <div class="panel-heading">
@@ -33,11 +33,25 @@
                 echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
                 echo $this->Form->control('dias');
                 echo $this->Form->control('activo');
-                echo $this->Form->control('mensaje');
+                // echo $this->Form->control('mensaje' );
+                echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor 4.
+                </textarea>
+
+                <script>
+                // Replace the <textarea id="mensaje"> with a CKEditor 4
+                // instance, using default configuration.
+                    CKEDITOR.replace( "mensaje" );
+                    console.log("this is a mensaje")
+
+                    var url = [] ; 
+                 </script>';
+
                 echo $this->Form->control('asunto');
             ?>
         </fieldset>
         <?= $this->Form->button(__('Enviar')) ?>
         <?= $this->Form->end() ?>
     </div>
+    
 </div>

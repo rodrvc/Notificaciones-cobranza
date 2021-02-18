@@ -69,7 +69,7 @@
            
             
             <h3 class="mb-10 "><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
-            <?= $this->Text->autoParagraph(h($cobranzaNotificacionConfiguracione->mensaje)); ?>
+            <?php  echo $cobranzaNotificacionConfiguracione->mensaje; ?>
         </div>
 </div>  
 <div class="cobranzaNotificacionConfiguraciones m-6 container preview ">
