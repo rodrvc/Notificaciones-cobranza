@@ -23,32 +23,45 @@
             </ul>
         
     </div>
+    
     <div class="cobranzaNotificacionConfiguraciones form frm container">
-        <?= $this->Form->create($cobranzaNotificacionConfiguracione) ?>
-        <fieldset>
-            <legend><?= __('Añadir nueva configuracion') ?></legend>
+       
+        <?= $this->Form->create($cobranzaNotificacionConfiguracione )?>
+        <fieldset style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 15px; ">
+            <legend style="grid-column:1/4;"><?=__(' Nueva Notificacion') ?></legend>
             <?php
+                 
+                 echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
+                 $days = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
+                 
+                 echo $this->Form->control('dias', ['input' , 'min' => '0'  ]);              
+                 echo $this->Form->control('dia_notificacion', ['options' => $days]);  
+                 // echo $this->Form->control('mensaje' );
+                 echo $this->Form->control('asunto', [ 'style' => 'grid-column:1/4' ]);
+                 $esActicado = [ 'Activado' , 'No activado']; 
+                 echo $this->Form->control('Estado', ['options' => $esActicado]);
+                 echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80" styles="grid-column: 1/3" >
+                        Escriba su mensaje aqui.
+                       </textarea>
+ 
+                 <script>
+                 // Replace the <textarea id="mensaje"> with a CKEditor 4
+                 // instance, using default configuration.
+                     CKEDITOR.replace( "mensaje" );
+                     console.log("this is a mensaje")
+ 
+                     var url = [] ; 
+                  </script>';
+
+
                 echo $this->Form->control('general_user_id', ['options' => $generalUsers, 'class' => 'form-control'] );
-                echo $this->Form->control('general_maestro_cliente_id', ['options' => $generalMaestroClientes]);
-                echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
-                echo $this->Form->control('dias', ['input' , 'min' => '0' ]);              
-                echo $this->Form->control('activo');
-                $sizes = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
-                echo $this->Form->control('dia_notificacion', ['options' => $sizes]);  
-                echo $this->Form->control('asunto' );
-                // echo $this->Form->control('mensaje' );
-                echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">
-                This is my textarea to be replaced with CKEditor 4.
-                </textarea>
+                echo $this->Form->control('general_maestro_cliente_id' ,['options' => $generalMaestroClientes ]);
+                
 
-                <script>
-                // Replace the <textarea id="mensaje"> with a CKEditor 4
-                // instance, using default configuration.
-                    CKEDITOR.replace( "mensaje" );
-                    console.log("this is a mensaje")
-
-                    var url = [] ; 
-                 </script>';
+              
+ 
+               
+               
 
                 
             ?>

@@ -105,7 +105,7 @@
 
             <!-- DTES OF DETAILS -->
                 
-                <div class="table-responsive mt-10">
+                <div class="table-responsive mt-10" style="margin-top:200px">
                     <table class="table table-bordered"> 
                         <thead> 
                             <tr> 
