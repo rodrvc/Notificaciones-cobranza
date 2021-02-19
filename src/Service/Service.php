@@ -143,60 +143,10 @@ class Service extends AppController
             
         };
 
-        //return $testResult;
-
-         
-
-
-        //guardar la configuracion
-        //pasar un array de facturas EMITIDAS ver si configuracion se cumple
-
-
-
-        //obtener logica configuracion hora 
-        //obtenerfacturasyusuarios que sean de tipo_movimiento = 1; 
-
-
-
-    
-        //here
-        // $plantillas = $plantillasTable->find()
-        // ->join([
-        //         'table' => 'general_maestro_clientes',
-        //         'alias' => 'c',
-        //         'type' => 'LEFT',
-        //         'conditions' => 'c.id = 1',
-        // ]);
-        // return  $result;
+       
             
             $facturas = $this->obtenerFact()->all();
             
-            // $fecha_actual = date("y-m-d");
-            // $detalleNotificacion = array(); 
-            // foreach ($facturas as $fac) {
-            //     foreach($plantillas as $plan){
-            //         //planilla es de tipo vencimiento
-            //         if($plan->cobranza_notificacion_tipo_id == 2 ){  
-            //             $dias = $plan->dias ;  
-
-            //             $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."- ".$dias." days"));
-            //             //fecha 12-02-2021 -> 08-12-21
-            //             if($fac->fecha_vencimiento < $fecha_rango_vencimiento ){
-                            
-
-            //             }
-                            
-            //         }
-                   
-
-
-            //     }
-            // }
-
-
-
-            
-
 
             return $plantillas;
 

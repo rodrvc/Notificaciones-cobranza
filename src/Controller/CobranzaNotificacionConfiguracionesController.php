@@ -31,10 +31,11 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $result = $service->evaluatedFactures();
 
         echo '<pre>';
-        print_r($result);
+        // print_r($result);
         echo '</pre>';
 
         //print_r($jsonCobranzas);
+        
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
         $this->set(compact('jsonCobranzas'));

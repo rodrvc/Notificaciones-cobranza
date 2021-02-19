@@ -63,7 +63,7 @@
     </div>
     <div class="cobranzaNotificacionConfiguraciones viewconfcontainer container preview">
 
-        <h3><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
+        <h3 style="margin-top:130px; text-aling:center"><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
         <?= $cobranzaNotificacionConfiguracione->mensaje ?>
         <hr>
         <table class="table table-bordered"> 
@@ -75,13 +75,38 @@
                     <th>Diferencia plazo</th> 
                 </tr> 
             </thead> 
-            <tbody> 
-                <tr> 
-                    <th scope="row">1</th> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
+            <tbody>
+              
+                <?php 
+                    $hoy = new DateTime();  
+                    $count = 1; 
+                    foreach($configuration[$id]["empresa"]["fact_dtes"] as $value): ?>
+                    <?php $fecha_actual = date("d-m-Y"); 
+                    $fecha_rango = date_format($value["fecha_vencimiento"] ,"d-m-Y");
+                   
+                    ?>
+                    <tr> 
+                        <th scope="row"><?= $count++  ?></th> 
+                            <td>Factura Folio:<?= $value["folio"]?></td> 
+                            <td>Vencimiento:<?= $fecha_rango ; ?></td> 
+                            <td><?php 
+                                 $diff;  
+                                 $mensaje; 
+                                
+                                 if ($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id == 2) {
+                                    $diff =  $hoy->diff($value["fecha_vencimiento"]);
+                                    $mensaje = 'dias de mora';
+                                 } else {
+                                    $diff =  $value["fecha_vencimiento"]->diff($hoy);
+                                    $mensaje = 'dias para vencimiento';
+                                 }
+                                //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
+                                //  $diff =  $hoy->diff($value["fecha_vencimiento"]);
+                                 echo $diff->format('%d '.$mensaje);
+                                 ; ?></td> 
                     </tr> 
+                <?php endforeach; ?>
+<!--                
                 <tr> 
                     <th scope="row">2</th> 
                         <td></td> 
@@ -93,12 +118,22 @@
                         <td></td> 
                         <td></td> 
                         <td></td> 
-                </tr> 
+                </tr>  -->
             </tbody> 
         </table>
-        <?php echo print_r($configuration); ?>
+        <!-- <?php echo print_r($configuration); ?> -->
        
 </div>  
 
-<?php echo print_r($cobranzaNotificacionConfiguracione); ?>
+<!-- <?php echo print_r($cobranzaNotificacionConfiguracione); ?> -->
 
+
+             
+    
+
+<!-- 
+<?php foreach($configuration[$id]["empresa"]["fact_dtes"] as $value): ?>
+    <p style="font-size:14px;margin:0;padding:10px;border:solid 1px #ddd;font-weight:bold;">
+        <span style="display:block;font-size:13px;font-weight:normal;">Factura Folio:<?= $value["folio"]?></span>Vencimiento:<?= $value["fecha_vencimiento"]?> <b style="font-size:12px;font-weight:300;"> </b>
+    </p>
+<?php endforeach; ?> -->
