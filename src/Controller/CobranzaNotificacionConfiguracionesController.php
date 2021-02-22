@@ -30,15 +30,22 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $service = new Service();
         $result = $service->evaluatedFactures();
 
+       
+
+
         echo '<pre>';
-        // print_r($result);
+        print_r($result);
         echo '</pre>';
 
         //print_r($jsonCobranzas);
         
+        // print_r($empresaElegida);
+        
+
+
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
-        $this->set(compact('jsonCobranzas'));
+        $this->set(compact('jsonCobranzas')); // for grid
     }
 
     /**
@@ -66,11 +73,11 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $service = new Service();
         $configuration = $service->evaluatedFactures();
 
+        // print_r($configuration);
+
         $this->set('configuration', $configuration); 
         $this->set('id', $id); 
         $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
-
-
     }
 
 
@@ -141,9 +148,9 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id);
         if ($this->CobranzaNotificacionConfiguraciones->delete($cobranzaNotificacionConfiguracione)) {
-            $this->Flash->success(__('The cobranza notificacion configuracione has been deleted.'));
+            $this->Flash->success(__('La notificacion fue eliminada.'));
         } else {
-            $this->Flash->error(__('The cobranza notificacion configuracione could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La notificacion no fue borrada. Por favor intente nuevamente.'));
         }
 
         return $this->redirect(['action' => 'index']);

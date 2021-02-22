@@ -40,27 +40,28 @@
                  </tr>
             </thead>
             <tbody>
-            <?php foreach ($cobranzaNotificacionConfiguraciones as $cobranzaNotificacionConfiguracione): ?>
-                
-                <tr>
-                    <!-- <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->id) ?></td> -->
-                    <!-- <td><?= $cobranzaNotificacionConfiguracione->has('general_user') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_user->name, ['controller' => 'GeneralUsers', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_user->id]) : '' ?></td> -->
-                    <td><?= $cobranzaNotificacionConfiguracione->has('general_maestro_cliente') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_maestro_cliente->nombre, ['controller' => 'GeneralMaestroClientes', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_maestro_cliente->logo ]) : '' ?></td>
-                    <td><?= $cobranzaNotificacionConfiguracione->has('cobranza_notificacion_tipo') ? $this->Html->link($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre, ['controller' => 'CobranzaNotificacionTipos', 'action' => 'view', $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre]) : '' ?></td>
-                    <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->dias) ?></td>
-                    <td><?= h( $cobranzaNotificacionConfiguracione->activo == 1 ? "Activado" : "No Activado") ?></td>
-                    <!-- <td><?= h($cobranzaNotificacionConfiguracione->created) ?></td> -->
-                    <td><?= h($cobranzaNotificacionConfiguracione->modified) ?></td>
-                    <td><?= h($cobranzaNotificacionConfiguracione->asunto) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link('Ver', '#myModal'.$cobranzaNotificacionConfiguracione->id, array(
-                            'data-toggle' => 'modal',
-                            'class' => 'btn btn-primary'
-                        )) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cobranzaNotificacionConfiguracione->id] , ['class' => 'btn btn-primary ']) ?>
-                        <?= $this->Form->postLink(__('Delete') , ['action' => 'delete', $cobranzaNotificacionConfiguracione->id ], ['confirm' => __('Are you sure you want to delete # {0}?', $cobranzaNotificacionConfiguracione->id), 'class' => 'btn btn-danger'] )?>
-                    </td>
-                </tr>
+            <?php foreach ($cobranzaNotificacionConfiguraciones as $cobranzaNotificacionConfiguracione):?>
+                <?php if ( $cobranzaNotificacionConfiguracione->general_maestro_cliente->id == 1 ): ?>
+                    <tr>
+                        <!-- <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->id) ?></td> -->
+                        <!-- <td><?= $cobranzaNotificacionConfiguracione->has('general_user') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_user->name, ['controller' => 'GeneralUsers', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_user->id]) : '' ?></td> -->
+                        <td><?= $cobranzaNotificacionConfiguracione->has('general_maestro_cliente') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_maestro_cliente->nombre, ['controller' => 'GeneralMaestroClientes', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_maestro_cliente->logo ]) : '' ?></td>
+                        <td><?= $cobranzaNotificacionConfiguracione->has('cobranza_notificacion_tipo') ? $this->Html->link($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre, ['controller' => 'CobranzaNotificacionTipos', 'action' => 'view', $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre]) : '' ?></td>
+                        <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->dias) ?></td>
+                        <td><?= h( $cobranzaNotificacionConfiguracione->activo == 1 ? "Activado" : "No Activado") ?></td>
+                        <!-- <td><?= h($cobranzaNotificacionConfiguracione->created) ?></td> -->
+                        <td><?= h($cobranzaNotificacionConfiguracione->modified) ?></td>
+                        <td><?= h($cobranzaNotificacionConfiguracione->asunto) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link('Ver', '#myModal'.$cobranzaNotificacionConfiguracione->id, array(
+                                'data-toggle' => 'modal',
+                                'class' => 'btn btn-primary'
+                            )) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cobranzaNotificacionConfiguracione->id] , ['class' => 'btn btn-primary ']) ?>
+                            <?= $this->Form->postLink(__('Delete') , ['action' => 'delete', $cobranzaNotificacionConfiguracione->id ], ['confirm' => __('Are you sure you want to delete # {0}?', $cobranzaNotificacionConfiguracione->id), 'class' => 'btn btn-danger'] )?>
+                        </td>
+                    </tr>
+                   <?php endif; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -84,7 +85,12 @@
 <!-- JQWIDGET DECLARE DATA -->
 <script>
     <?php echo ' var url = '.$jsonCobranzas.'' ?>
+
 </script> 
+<!-- <script>
+    var csrfToken = <?= json_encode($this->request->param('_csrfToken')) ?>;
+    // ...
+</script> -->
 <?php echo $this->Html->script('grid'); ?> 
 
 

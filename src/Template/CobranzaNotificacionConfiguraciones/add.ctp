@@ -27,8 +27,8 @@
     <div class="cobranzaNotificacionConfiguraciones form frm container">
        
         <?= $this->Form->create($cobranzaNotificacionConfiguracione )?>
-        <fieldset style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 15px; ">
-            <legend style="grid-column:1/4;"><?=__(' Nueva Notificacion') ?></legend>
+        <fieldset class="grid-form" >
+            <legend class="col-template1-4" ><?=__(' Nueva Notificacion') ?></legend>
             <?php
                  
                  echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
@@ -38,7 +38,7 @@
                  echo $this->Form->control('dia_notificacion', ['options' => $days]);  
                  // echo $this->Form->control('mensaje' );
                  echo $this->Form->control('asunto', [ 'style' => 'grid-column:1/4' ]);
-                 $esActicado = [ 'Activado' , 'No activado']; 
+                 $esActicado = [ 1 => 'Activado' , 2 => 'No activado']; 
                  echo $this->Form->control('Estado', ['options' => $esActicado]);
                  echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80" styles="grid-column: 1/3" >
                         Escriba su mensaje aqui.
@@ -66,8 +66,8 @@
                 
             ?>
         </fieldset>
-        <?= $this->Form->button(__('Enviar')) ?>
-        <?= $this->Form->end() ?>
+        <?= $this->Form->button(__('Enviar' ) , ['class' => 'btn btn-primary btn-lg'  ] ) ?>
+        <?= $this->Form->end()  ?>
     </div>
     
 </div>

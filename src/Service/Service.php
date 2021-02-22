@@ -73,13 +73,14 @@ class Service extends AppController
 
             $tipo = $configuracion->cobranza_notificacion_tipo_id;
             $fecha_actual = date("y-m-d");
-            $dias = $configuracion->dias;
-            $dia_envio_notificacion = $configuracion->dia_notificacion;
+            $dias = $configuracion->dias; // dias rango
+            $dia_envio_notificacion = $configuracion->dia_notificacion;//que dia
             $todayText = date('l'); //se obtiene fecha actual
             
             
             if($dia_envio_notificacion == $todayText){
-                if ($tipo == 1 ){
+                if ($tipo == 1 ){ // si es previo al vencimiento
+
                     $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
                     $sql =  
                     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
@@ -139,16 +140,14 @@ class Service extends AppController
         }
         return $data;
 
-        function existe (){
-            
-        };
+      
 
        
             
-            $facturas = $this->obtenerFact()->all();
+        $facturas = $this->obtenerFact()->all();
             
 
-            return $plantillas;
+        return $plantillas;
 
 
 
@@ -166,8 +165,8 @@ class Service extends AppController
         
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
-        $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas'])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+        $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ])
@@ -180,8 +179,8 @@ class Service extends AppController
     public function getOverdueInvoces ( $posteriorVencimiento,  $empresa ){
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
-        $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas'])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+        $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
             ->where(['FactDtes.fecha_vencimiento <' => $posteriorVencimiento ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
@@ -205,15 +204,25 @@ class Service extends AppController
 
     public function respuestaOrdenada($conf , $configuracionActual ){
         $respuesta = array();
+        echo '<pre>';
+        print_r($conf);
+        echo '</pre>';
+
+        if (empty($conf)) {
+            return ; 
+        }
         
         $respuesta["mensaje"] = $configuracionActual->mensaje;
         $respuesta["asunto"] = $configuracionActual->asunto;
         $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
+        $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
         $respuesta["tipo"] = ($configuracionActual->cobranza_notificacion_tipo_id == 1) ? "Facturas Prontas a Vencer " : "Facturas Vencidas" ;
-        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona_id"] ;
+        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona_id"];
         $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
         $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
         $respuesta["empresa"]["fact_dtes"] = $conf;
+
+      
 
         return $respuesta;  
 

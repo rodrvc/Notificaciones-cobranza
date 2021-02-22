@@ -45,16 +45,35 @@
         <?=$this
     ->Form
     ->create($cobranzaNotificacionConfiguracione) ?>
-        <fieldset>
-            <legend><?=__('Edit Cobranza Notificacion Configuracione') ?></legend>
+        <fieldset class="grid-form">
+            <legend class="col-template1-4"><?=__('Edit Cobranza Notificacion Configuracione') ?></legend>
             <?php
+echo $this
+     ->Form
+    ->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
 
 echo $this
     ->Form
+    ->control('dias');
+
+    $days = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
+    echo $this->Form->control('dia_notificacion', ['options' => $days]);  // translate values
+    
+    echo $this
+    ->Form
     ->control('asunto');
+
+   $esActicado = [ 1 => 'Activado' , 2 => 'No activado']; 
+    echo $this
+        ->Form
+        ->control('estado', ['options' => $esActicado]);
+
+
 // echo $this->Form->control('mensaje');
-echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' . $cobranzaNotificacionConfiguracione->mensaje . '
-                </textarea>
+// CKEDITOR RENDER
+echo    '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' 
+            . $cobranzaNotificacionConfiguracione->mensaje . '
+        </textarea>
 
                 <script>
                 // Replace the <textarea id="mensaje"> with a CKEditor 4
@@ -65,7 +84,7 @@ echo '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' . $cobranzaNot
                     
                  </script>';
 
-echo '<h3 class="mt-10">Configuraciones</h3> <hr>' ;
+
 
 echo $this
     ->Form
@@ -75,26 +94,15 @@ echo $this
     ->Form
     ->control('general_maestro_cliente_id', ['options' => $generalMaestroClientes]);
 
-echo $this
-    ->Form
-    ->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
-echo $this
-    ->Form
-    ->control('dias');
+
+
     // DAYS TRANSLATE
-    $sizes = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
-echo $this->Form->control('dia_notificacion', ['options' => $sizes]);  // translate values
-echo $this
-    ->Form
-    ->control('activo');
-
-
-
+ 
 ?>
         </fieldset>
         <?=$this
     ->Form
-    ->button(__('Submit')) ?>
+    ->button(__('Modificar') ,['class' => 'btn btn-primary btn-lg' ]); ?>
         <?=$this
     ->Form
     ->end() ?>

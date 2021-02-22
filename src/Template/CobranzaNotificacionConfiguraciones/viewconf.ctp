@@ -61,7 +61,7 @@
             ) ?> </li>
         </ul>
     </div>
-    <div class="cobranzaNotificacionConfiguraciones viewconfcontainer container preview">
+    <div class="cobranzaNotificacionConfiguraciones viewconfcontainer container \">
 
         <h3 style="margin-top:130px; text-aling:center"><?= h($cobranzaNotificacionConfiguracione->asunto) ?></h3>
         <?= $cobranzaNotificacionConfiguracione->mensaje ?>
@@ -69,10 +69,13 @@
         <table class="table table-bordered"> 
             <thead> 
                 <tr> 
-                    <th>#</th> 
+                    <th>#</th>
+                    <th>Cod. SII</th> 
+                    <th>Documento tipo</th> 
                     <th>Folio</th> 
                     <th>fecha Vencimiento</th> 
                     <th>Diferencia plazo</th> 
+                    
                 </tr> 
             </thead> 
             <tbody>
@@ -86,13 +89,15 @@
                    
                     ?>
                     <tr> 
-                        <th scope="row"><?= $count++  ?></th> 
-                            <td>Factura Folio:<?= $value["folio"]?></td> 
-                            <td>Vencimiento:<?= $fecha_rango ; ?></td> 
+                            <th scope="row"><?= $count++  ?></th> 
+                            <td><?= $value["fact_dte_tipo"]["codigo_SII"] ?></td> 
+                            <td><?= $value["fact_dte_tipo"]["nombre"]?></td>                 
+                            <td><?= $value["folio"]?></td> 
+                            <td>Vencimiento:<?= $fecha_rango ; ?></td> //fecha 
                             <td><?php 
                                  $diff;  
                                  $mensaje; 
-                                
+
                                  if ($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id == 2) {
                                     $diff =  $hoy->diff($value["fecha_vencimiento"]);
                                     $mensaje = 'dias de mora';
@@ -121,19 +126,8 @@
                 </tr>  -->
             </tbody> 
         </table>
-        <!-- <?php echo print_r($configuration); ?> -->
-       
+     
 </div>  
 
-<!-- <?php echo print_r($cobranzaNotificacionConfiguracione); ?> -->
 
 
-             
-    
-
-<!-- 
-<?php foreach($configuration[$id]["empresa"]["fact_dtes"] as $value): ?>
-    <p style="font-size:14px;margin:0;padding:10px;border:solid 1px #ddd;font-weight:bold;">
-        <span style="display:block;font-size:13px;font-weight:normal;">Factura Folio:<?= $value["folio"]?></span>Vencimiento:<?= $value["fecha_vencimiento"]?> <b style="font-size:12px;font-weight:300;"> </b>
-    </p>
-<?php endforeach; ?> -->

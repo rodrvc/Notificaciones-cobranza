@@ -18,6 +18,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html>
 <head>
+
     <?= $this->Html->charset() ?>
     <?= $this->fetch('script') ?>
   
@@ -101,7 +102,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     
                     <a class="navbar-brand" href="#">Brand</a>
                 </div>
-
+              
         <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">

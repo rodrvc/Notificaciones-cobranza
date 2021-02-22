@@ -26,19 +26,35 @@ $(document).ready(function () {
         
     }
 
+
+
+    var  columnrender = function (value) {
+
+        return '<a href="#" class="btn btn-danger" onclick="if (confirm(&quot;Are you sure you want to delete # 3?&quot;)) { document.post_6031b03faf905747311104.submit(); } event.returnValue = false; return false;">Delete</a>';}
+
+
+    var cellrenderer = function (row, column, value) {
+
+
+        var hello = "hello pass"
+        return ` ${hello}; `
+        
+    }
+
+
     $("#jqxgrid").jqxGrid(
     {
         
         source: dataAdapter,
         width: "100%",
-        
-       
         showstatusbar: true,
         columns: [
           { text: 'asunto', datafield: 'asunto', width: 200 },
           { text: 'tipo', datafield: 'nombre', width: 200 },
           { text: 'created', datafield: 'created', width: 200 },
           { text: 'Dia Recordatorio', datafield: 'dia_notificacion', width: 200 },
+
+
           { text: 'Ver', 
             datafield: 'Ver', 
             columntype: 'button', 
@@ -51,78 +67,35 @@ $(document).ready(function () {
         // open the popup window when the user clicks a button.
             editrow = row;
             var offset = $("#jqxgrid").offset();
-            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
-
-                
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);        
             }},
+
+
           { 
             text: 'Edit', 
             datafield: 'Edit', 
             columntype: 'button', 
             width: 100,
-            cellsrenderer: function () {
-                return "Editar";
+            cellsrenderer: function (value) {
+                return '<button type=""  class="btn btn-default">'+ value +  '</button> ';
             }, 
             buttonclick: function (row) {
             // open the popup window when the user clicks a button.
                 editrow = row;
                 var offset = $("#jqxgrid").offset();
                 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
-
-
-               
-
-
-            // $("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
-
-            // // get the clicked row's data and initialize the input fields.
-            // var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
-            // $("#firstName").val(dataRecord.firstname);
-            // $("#lastName").val(dataRecord.lastname);
-            // $("#product").val(dataRecord.productname);
-            // $("#quantity").jqxNumberInput({ decimal: dataRecord.quantity });
-            // $("#price").jqxNumberInput({ decimal: dataRecord.price });
-
-            // // show the popup window.
-            // $("#popupWindow").jqxWindow('open');
-        }
+                alert(row);
+            }
         },
         { 
             text: 'Eliminar', 
             datafield: 'Eliminar', 
-            columntype: 'button', 
+            
             width: 100,
-            cellsrenderer: function () {
-                return "Eliminar";
-            }, 
-            buttonclick: function (row) {
-                
-                editrow = row;
-                var offset = $("#jqxgrid").offset();
-                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
 
-                console.log(dataRecord);
-                var data = dataRecord.uid;
-
-                console.log(data);
-
-                $.ajax({
-                    url: '/cobranza-notificacion-configuraciones/delete/5',
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'json',
-                    success: function(result) {
-                        // Do something with the result
-                        alert('this was deleted');
-                    }
-
-                    
-                });
-                
-              
-                
-      
-            }
+            cellsrenderer: cellrenderer,
+            renderer: columnrender,
+          
         }
        ]
     });
