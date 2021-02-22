@@ -34,7 +34,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
 
         echo '<pre>';
-        print_r($result);
+        // print_r($result);
         echo '</pre>';
 
         //print_r($jsonCobranzas);
@@ -45,7 +45,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
-        $this->set(compact('jsonCobranzas')); // for grid
+        $this->set(compact('jsonCobranzas')); // para grid 
     }
 
     /**

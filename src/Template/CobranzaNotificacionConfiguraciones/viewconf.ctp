@@ -74,6 +74,7 @@
                     <th>Documento tipo</th> 
                     <th>Folio</th> 
                     <th>fecha Vencimiento</th> 
+                    <th>fecha presente</th> 
                     <th>Diferencia plazo</th> 
                     
                 </tr> 
@@ -86,14 +87,15 @@
                     foreach($configuration[$id]["empresa"]["fact_dtes"] as $value): ?>
                     <?php $fecha_actual = date("d-m-Y"); 
                     $fecha_rango = date_format($value["fecha_vencimiento"] ,"d-m-Y");
-                   
+                        
                     ?>
                     <tr> 
                             <th scope="row"><?= $count++  ?></th> 
                             <td><?= $value["fact_dte_tipo"]["codigo_SII"] ?></td> 
                             <td><?= $value["fact_dte_tipo"]["nombre"]?></td>                 
                             <td><?= $value["folio"]?></td> 
-                            <td>Vencimiento:<?= $fecha_rango ; ?></td> //fecha 
+                            <td><?= $fecha_rango ; ?></td> 
+                            <td><?= $fecha_actual ; ?></td> 
                             <td><?php 
                                  $diff;  
                                  $mensaje; 
@@ -125,8 +127,10 @@
                         <td></td> 
                 </tr>  -->
             </tbody> 
-        </table>
-     
+        </table>    
+        <?php $time->timezone = 'America/Santiago'; ?> 
+        <?=  print_r($time); ?>
+                                 
 </div>  
 
 
