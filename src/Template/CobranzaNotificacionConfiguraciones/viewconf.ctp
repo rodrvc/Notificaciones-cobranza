@@ -128,8 +128,8 @@
                 </tr>  -->
             </tbody> 
         </table>    
-        <?php $time->timezone = 'America/Santiago'; ?> 
-        <?=  print_r($time); ?>
+        <?=  $this->element('prueba/testElement');  ?>                    
+        <!-- <?= $time = getdate(); print_r($time); ?> -->
                                  
 </div>  
 

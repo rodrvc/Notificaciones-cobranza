@@ -42,70 +42,8 @@
             </ul>
     </div>
     <div class="cobranzaNotificacionConfiguraciones form frm container">
-        <?=$this
-    ->Form
-    ->create($cobranzaNotificacionConfiguracione) ?>
-        <fieldset class="grid-form">
-            <legend class="col-template1-4"><?=__('Edit Cobranza Notificacion Configuracione') ?></legend>
-            <?php
-echo $this
-     ->Form
-    ->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
-
-echo $this
-    ->Form
-    ->control('dias');
-
-    $days = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
-    echo $this->Form->control('dia_notificacion', ['options' => $days]);  // translate values
-    
-    echo $this
-    ->Form
-    ->control('asunto');
-
-   $esActicado = [ 1 => 'Activado' , 2 => 'No activado']; 
-    echo $this
-        ->Form
-        ->control('estado', ['options' => $esActicado]);
-
-
-// echo $this->Form->control('mensaje');
-// CKEDITOR RENDER
-echo    '<textarea name="mensaje" id="mensaje" rows="10" cols="80">' 
-            . $cobranzaNotificacionConfiguracione->mensaje . '
-        </textarea>
-
-                <script>
-                // Replace the <textarea id="mensaje"> with a CKEditor 4
-                // instance, using default configuration.
-                    CKEDITOR.replace( "mensaje" );
-                    console.log("this is a mensaje")
-
-                    
-                 </script>';
-
-
-
-echo $this
-    ->Form
-    ->control('general_user_id', ['options' => $generalUsers]);
-
-echo $this
-    ->Form
-    ->control('general_maestro_cliente_id', ['options' => $generalMaestroClientes]);
-
-
-
-    // DAYS TRANSLATE
- 
-?>
-        </fieldset>
-        <?=$this
-    ->Form
-    ->button(__('Modificar') ,['class' => 'btn btn-primary btn-lg' ]); ?>
-        <?=$this
-    ->Form
-    ->end() ?>
+        <?=  $this->element('forms/formplantilla' , ['title_form' => 'Editar Plantilla de Cobranza']);  ?>      
+      
     </div>
     
 </div>

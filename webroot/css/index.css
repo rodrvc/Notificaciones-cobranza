@@ -43,6 +43,10 @@ footer {
     height: 200px;
 }
 
+body > div:nth-child(2) > div > div.cobranzaNotificacionConfiguraciones.form.frm.container > form > fieldset > div.form-group.textarea {
+    grid-column: 1/4;
+}
+
 #cke_mensaje {
     grid-column: 1/4;
 }

@@ -152,7 +152,6 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         } else {
             $this->Flash->error(__('La notificacion no fue borrada. Por favor intente nuevamente.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }
