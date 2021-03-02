@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Controller\Component\RequestHandlerComponent;
 
 /**
  * CobranzaEstados Controller
@@ -13,6 +14,24 @@ use App\Controller\AppController;
 class CobranzaEstadosController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Security');
+        $this->loadComponent('RequestHandler');
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Security->setConfig('unlockedActions', ['delete']);
+    }
+
+
+
+
+
     /**
      * Index method
      *
@@ -23,6 +42,7 @@ class CobranzaEstadosController extends AppController
         $cobranzaEstados = $this->paginate($this->CobranzaEstados);
 
         $this->set(compact('cobranzaEstados'));
+        $this->set('_serialize', 'cobranzaEstados');
     }
 
     /**
@@ -94,6 +114,8 @@ class CobranzaEstadosController extends AppController
      */
     public function delete($id = null)
     {
+      
+        
         $this->request->allowMethod(['post', 'delete']);
         $cobranzaEstado = $this->CobranzaEstados->get($id);
         if ($this->CobranzaEstados->delete($cobranzaEstado)) {
@@ -101,7 +123,9 @@ class CobranzaEstadosController extends AppController
         } else {
             $this->Flash->error(__('The cobranza estado could not be deleted. Please, try again.'));
         }
-
+        $this->set('_serialize', 'cobranzaEstado');
         return $this->redirect(['action' => 'index']);
     }
+
+
 }

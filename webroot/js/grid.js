@@ -1,5 +1,7 @@
 $(document).ready(function () {
-            
+
+
+   
     // prepare the data
     var source =
     {
@@ -7,12 +9,41 @@ $(document).ready(function () {
         datafields: [
             { name: 'asunto' },
             { name: 'nombre' , map: 'cobranza_notificacion_tipo>nombre'},
-            { name: 'created' },
+            { name: 'created' ,  type: 'date' },
             { name: 'dia_notificacion', map: 'dia_notificacion' },
             
         ],
         id: 'id',
-        localdata: url
+        localdata: url,
+        deleterow: function (rowid, commit) {
+         
+            var data = rowid ;
+   
+   
+            
+            $.ajax({
+                method: "delete",
+                url: "http://localhost:8765/cobranza-notificacion-configuraciones/delete/" + data ,
+                data: data,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+                },
+                success: function (data, status, xhr) {
+                    // delete command is executed.
+                    commit(true);
+                    
+                },  
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR, textStatus, errorThrown);
+                    commit(false);         
+                }
+            }).done(function(){ 
+                
+                commit(true);
+            });
+    
+           
+        },
         
     };
     var dataAdapter = new $.jqx.dataAdapter(source, {
@@ -21,85 +52,114 @@ $(document).ready(function () {
         loadComplete: function (data) { },
         loadError: function (xhr, status, error) { }
     });
-
-    function changeLengajeDay(){
-        
-    }
-
-
-
-    var  columnrender = function (value) {
-
-        return '<a href="#" class="btn btn-danger" onclick="if (confirm(&quot;Are you sure you want to delete # 3?&quot;)) { document.post_6031b03faf905747311104.submit(); } event.returnValue = false; return false;">Delete</a>';}
-
-
+    
+    //RENDER BUTTONS
     var cellrenderer = function (row, column, value) {
-
-
-        var hello = "hello pass"
-        return ` ${hello}; `
+        
+        var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
+        var modal = `#myModal` + dataRecord.uid; 
+        
+        
+        return `<div class="grid-div-buttons" >` + 
+                    '<a href="' + modal + '" class="btn btn-primary" data-toggle="modal" > Ver </a>' + 
+                    `<a href="/cobranza-notificacion-configuraciones/edit/`+ dataRecord.uid + `" class="btn btn-primary ">Editar</a>` + 
+                    "<button id='deleterowbutton' class='deleterowbutton btn btn-danger' value='Delete Selected Row' >borrar</button>" + 
+                `</div>`
         
     }
-
-
+    
+    
+ 
+    
+    
     $("#jqxgrid").jqxGrid(
     {
         
         source: dataAdapter,
         width: "100%",
+        autorowheight: true,
+        autoheight: true,
         showstatusbar: true,
         columns: [
           { text: 'asunto', datafield: 'asunto', width: 200 },
           { text: 'tipo', datafield: 'nombre', width: 200 },
-          { text: 'created', datafield: 'created', width: 200 },
-          { text: 'Dia Recordatorio', datafield: 'dia_notificacion', width: 200 },
-
-
-          { text: 'Ver', 
-            datafield: 'Ver', 
-            columntype: 'button', 
-            width: 100,
+          { text: 'creado', datafield: 'created', cellsformat: 'dd/MM/yyyy'},
+          { text: 'Dia Recordatorio', datafield: 'dia_notificacion', width: 200, 
             
-            cellsrenderer: function () {
-                return "Ver";
-            }, 
-            buttonclick: function (row) {
-        // open the popup window when the user clicks a button.
-            editrow = row;
-            var offset = $("#jqxgrid").offset();
-            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);        
-            }},
+            cellsalign: 'center', align: 'center',
+            cellsrenderer: function (row){
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
+            var traduccionDia = ""; 
+            
+            switch (dataRecord.dia_notificacion) {
+                case "Monday":
+                    traduccionDia =  'Lunes';                        
+                    break;
+                case "Tuesday":
+                    traduccionDia =  "Martes"
+                    break; 
+                case "Wednesday":
+                    traduccionDia = "Miercoles"
+                    break; 
+                case "Friday":
+                    traduccionDia =  "Viernes"
+                    break; 
+                case "Saturday": 
+                    traduccionDia =  "Sabado"
+                    break; 
+                case "Sunday": 
+                    traduccionDia=  "Domingo";
+                    break; 
+                default:
+                    break;
+                }
 
-
-          { 
-            text: 'Edit', 
-            datafield: 'Edit', 
-            columntype: 'button', 
-            width: 100,
-            cellsrenderer: function (value) {
-                return '<button type=""  class="btn btn-default">'+ value +  '</button> ';
-            }, 
-            buttonclick: function (row) {
-            // open the popup window when the user clicks a button.
-                editrow = row;
-                var offset = $("#jqxgrid").offset();
-                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editrow);
-                alert(row);
+                return "<div class='text-grid'><div style='flex: 0 0 120px;' >" + traduccionDia + "</div></div>"
             }
-        },
-        { 
-            text: 'Eliminar', 
-            datafield: 'Eliminar', 
-            
-            width: 100,
-
+           
+          },
+          { 
+            text: 'Acciones', 
+            datafield: 'Acciones', 
+            height: 150,
+            width: 220,
             cellsrenderer: cellrenderer,
-            renderer: columnrender,
-          
-        }
+            cellsalign: 'center', align: 'center'
+           }, 
        ]
     });
-
-
-   
-});
+    
+    $(".deleterowbutton").jqxButton();
+    
+    $(".deleterowbutton").on('click', function () {
+       
+        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+        
+        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
+        if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+            var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
+            if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
+                $("#jqxgrid").jqxGrid('deleterow', id);
+             } event.returnValue = false; return false;
+                
+    
+            
+        }
+    });
+    
+    
+    
+    //MODAL AJAX LOAD
+    
+    $body = $("body");
+    
+    $(document).on({
+        ajaxStart: function() { $body.addClass("loading");    },
+         ajaxStop: function() { $body.removeClass("loading"); }    
+    });
+    
+    
+    
+    });
+    

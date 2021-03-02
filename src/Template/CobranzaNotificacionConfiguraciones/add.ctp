@@ -7,7 +7,7 @@
 
 
 <?php echo $this->Html->script('ckeditor/ckeditor'); ?> 
-<?php echo $this->Html->script('ckfinder/ckfinder'); ?> 
+
 <div class="flex">
     <div class="panel panel-default m-6 side" id="actions-sidebar">
         <div class="panel-heading">

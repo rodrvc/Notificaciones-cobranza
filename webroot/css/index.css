@@ -23,7 +23,12 @@
 }
 
 
-
+.text-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px; 
+}
 
 .mb-10 {
     margin-bottom: 60px;
@@ -89,3 +94,43 @@ body > div > div.flex > div.container.col-md-8.col-md-offset-1 > h3 {
 
 }
 
+
+
+/* buttonindextable */
+
+
+.grid-div-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    margin: 2px;
+}
+
+
+/* 
+ AJAX LOAD */
+/* modal styles and load gift */
+   .modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('/css/images/loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* hidde modal*/
+body.loading .modal {
+    overflow: hidden;   
+}
+
+/* when modal es called */
+body.loading .modal {
+    display: block;
+}
+/* END MODAL AJAX LOAD */

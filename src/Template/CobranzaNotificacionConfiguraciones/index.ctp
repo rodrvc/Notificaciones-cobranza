@@ -24,47 +24,7 @@
     </div>
     <div class="container  col-md-8 col-md-offset-1">
         <h3><?= __('Cobranza Notificacion Configuraciones') ?></h3>
-        <table class="table table-striped table-bordered" cellpadding="0" cellspacing="0">
-            <thead>
-                <tr>
-                    <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('usuario') ?></th> -->
-                    <th scope="col"><?= $this->Paginator->sort('cliente') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('tipo') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('dias') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('activo') ?></th>
-                    <!-- <th scope="col"><?= $this->Paginator->sort('created') ?></th> -->
-                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('asunto') ?></th>
-                    <th scope="col" class="actions"><?= __('Actions') ?></th>
-                 </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($cobranzaNotificacionConfiguraciones as $cobranzaNotificacionConfiguracione):?>
-                <?php if ( $cobranzaNotificacionConfiguracione->general_maestro_cliente->id == 1 ): ?>
-                    <tr>
-                        <!-- <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->id) ?></td> -->
-                        <!-- <td><?= $cobranzaNotificacionConfiguracione->has('general_user') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_user->name, ['controller' => 'GeneralUsers', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_user->id]) : '' ?></td> -->
-                        <td><?= $cobranzaNotificacionConfiguracione->has('general_maestro_cliente') ? $this->Html->link($cobranzaNotificacionConfiguracione->general_maestro_cliente->nombre, ['controller' => 'GeneralMaestroClientes', 'action' => 'view', $cobranzaNotificacionConfiguracione-> general_maestro_cliente->logo ]) : '' ?></td>
-                        <td><?= $cobranzaNotificacionConfiguracione->has('cobranza_notificacion_tipo') ? $this->Html->link($cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre, ['controller' => 'CobranzaNotificacionTipos', 'action' => 'view', $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo->nombre]) : '' ?></td>
-                        <td><?= $this->Number->format($cobranzaNotificacionConfiguracione->dias) ?></td>
-                        <td><?= h( $cobranzaNotificacionConfiguracione->activo == 1 ? "Activado" : "No Activado") ?></td>
-                        <!-- <td><?= h($cobranzaNotificacionConfiguracione->created) ?></td> -->
-                        <td><?= h($cobranzaNotificacionConfiguracione->modified) ?></td>
-                        <td><?= h($cobranzaNotificacionConfiguracione->asunto) ?></td>
-                        <td class="actions">
-                            <?= $this->Html->link('Ver', '#myModal'.$cobranzaNotificacionConfiguracione->id, array(
-                                'data-toggle' => 'modal',
-                                'class' => 'btn btn-primary'
-                            )) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cobranzaNotificacionConfiguracione->id] , ['class' => 'btn btn-primary ']) ?>
-                            <?= $this->Form->postLink(__('Delete') , ['action' => 'delete', $cobranzaNotificacionConfiguracione->id ], ['confirm' => __('Are you sure you want to delete # {0}?', $cobranzaNotificacionConfiguracione->id), 'class' => 'btn btn-danger'] )?>
-                        </td>
-                    </tr>
-                   <?php endif; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+     
         <div id='jqxWidget'>
             <div id="jqxgrid"></div>
         </div>
@@ -84,8 +44,11 @@
 
 <!-- JQWIDGET DECLARE DATA -->
 <script>
+    var csrfToken = <?= json_encode($this->request->param('_csrfToken')) ?>;
+    
     <?php echo ' var url = '.$jsonCobranzas.'' ?>
 
+   
 </script> 
 <!-- <script>
     var csrfToken = <?= json_encode($this->request->param('_csrfToken')) ?>;
@@ -153,3 +116,4 @@
 </div>
 <?php endforeach; ?>
 
+<div class="modal"><!-- Place at bottom of page --></div>
