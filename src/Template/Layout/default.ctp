@@ -33,17 +33,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <!-- 
-    <title id='Description'>This example shows how to create a Grid from Array data.</title>
-    <link rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css" type="text/css" />
-    <script type="text/javascript" src="../../scripts/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxcore.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxdata.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxbuttons.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxscrollbar.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxmenu.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxgrid.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxgrid.selection.js"></script> -->
+ 
 
 
    
@@ -59,7 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script('jqwidgets/jqxgrid.selection', array('inline' => false)) ?>
     <?= $this->Html->script('jqwidgets/jqxdata' , array('inline' => false)) ?>
   
-    
+    <!-- JQCOMPONENTS -->
     
 
 
@@ -80,16 +70,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
   
-
-<!-- JQCOMPONENTS -->
-   
-
-
-  
-
-    
-  
-
 
 
 

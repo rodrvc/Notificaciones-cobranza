@@ -19,24 +19,26 @@ $(document).ready(function () {
          
             var data = rowid ;
    
-   
+            console.log()
             
             $.ajax({
-                method: "delete",
-                url: "http://localhost:8765/cobranza-notificacion-configuraciones/delete/" + data ,
-                data: data,
+                method: "post",
+                data:data, 
+                url: "/cobranza-notificacion-configuraciones/delete/" + data,
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
                 },
                 success: function (data, status, xhr) {
                     // delete command is executed.
+                   
                     commit(true);
                     
                 },  
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR, textStatus, errorThrown);
                     commit(false);         
-                }
+                },
+                
             }).done(function(){ 
                 
                 commit(true);
@@ -48,7 +50,7 @@ $(document).ready(function () {
     };
     var dataAdapter = new $.jqx.dataAdapter(source, {
        
-        downloadComplete: function (data, status, xhr) { },
+        downloadComplete: function (data, status, xhr) {     },
         loadComplete: function (data) { },
         loadError: function (xhr, status, error) { }
     });
@@ -100,6 +102,9 @@ $(document).ready(function () {
                     break; 
                 case "Wednesday":
                     traduccionDia = "Miercoles"
+                    break; 
+                case "Thursday":
+                    traduccionDia =  "Jueves"
                     break; 
                 case "Friday":
                     traduccionDia =  "Viernes"

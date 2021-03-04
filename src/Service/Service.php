@@ -204,9 +204,9 @@ class Service extends AppController
 
     public function respuestaOrdenada($conf , $configuracionActual ){
         $respuesta = array();
-        echo '<pre>';
-        print_r($conf);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($conf);
+        // echo '</pre>';
 
         if (empty($conf)) {
             return ; 

@@ -36,13 +36,6 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         echo '<pre>';
         // print_r($result);
         echo '</pre>';
-
-        //print_r($jsonCobranzas);
-        
-        // print_r($empresaElegida);
-        
-
-
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));
         $this->set(compact('jsonCobranzas')); // para grid 
@@ -76,15 +69,28 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         // print_r($configuration);
 
         $this->set('configuration', $configuration); 
-        $this->set('id', $id); 
+        $this->set('id', $id);
         $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
     }
 
 
 
 
+    public function plantillaCorreos($id = null)
+    {
+        $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
+            'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
+        ]);
 
+        $service = new Service();
+        $configuration = $service->evaluatedFactures();
 
+        // print_r($configuration);
+
+        return ['configuration' => $configuration ,
+        'id' => $id , 
+        'cobranzaNotificacionConfiguracione' => $cobranzaNotificacionConfiguracione]; 
+    }
 
     /**
      * Add method
@@ -144,14 +150,28 @@ class CobranzaNotificacionConfiguracionesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
-    {
+    {   
+        $message = 'plantilla borrado'; 
         $this->request->allowMethod(['post', 'delete']);
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id);
-        if ($this->CobranzaNotificacionConfiguraciones->delete($cobranzaNotificacionConfiguracione)) {
-            $this->Flash->success(__('La notificacion fue eliminada.'));
-        } else {
-            $this->Flash->error(__('La notificacion no fue borrada. Por favor intente nuevamente.'));
+        
+        if (!$this->CobranzaNotificacionConfiguraciones->delete($cobranzaNotificacionConfiguracione)) {
+            // $this->Flash->success(__('La notificacion fue eliminada.'));
+
+            $message = 'error al eliminar';
         }
-        return $this->redirect(['action' => 'index']);
+        // return $this->redirect(['action' => 'index']);
+        // $this->set('message', $message);
+        // $this->viewBuilder()->setOption('serialize', ['message']);
+        // $this->set('_serialize', 'cobranzaEstado');
+
+        $this->set([
+            'message' => $message,
+            '_serialize' => ['message']
+        ]);
+
+        
+      
+        
     }
 }

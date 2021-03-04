@@ -115,16 +115,16 @@ class CobranzaEstadosController extends AppController
     public function delete($id = null)
     {
       
-        
+       
         $this->request->allowMethod(['post', 'delete']);
         $cobranzaEstado = $this->CobranzaEstados->get($id);
         if ($this->CobranzaEstados->delete($cobranzaEstado)) {
-            $this->Flash->success(__('The cobranza estado has been deleted.'));
+            // $this->Flash->success(__('The cobranza estado has been deleted.'));
         } else {
-            $this->Flash->error(__('The cobranza estado could not be deleted. Please, try again.'));
+            //$this->Flash->error(__('The cobranza estado could not be deleted. Please, try again.'));
         }
-        $this->set('_serialize', 'cobranzaEstado');
-        return $this->redirect(['action' => 'index']);
+        // $this->set('_serialize', 'cobranzaEstado');
+        // return $this->redirect(['action' => 'index']);
     }
 
 

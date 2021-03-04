@@ -15,8 +15,8 @@
 
                 $mensaje = $cobranzaNotificacionConfiguracione->mensaje; 
 
-                if ($mensaje ) {
-                    # code...
+                if (empty($mensaje) ) {
+                    $mensaje = $this->Html->image("logo-empresa.png", ['fullBase' => true]);
                 }
 
                 echo $this->Html->image('logo.png', ['alt' => 'logo']);
@@ -26,9 +26,7 @@
                 
                 
                  echo '<textarea name="mensaje" id="mensaje">'
-                        .$cobranzaNotificacionConfiguracione->mensaje.
-
-
+                        .$mensaje.
                        '</textarea>
  
                  <script>

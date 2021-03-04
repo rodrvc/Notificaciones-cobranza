@@ -128,7 +128,7 @@
                 </tr>  -->
             </tbody> 
         </table>    
-        <?=  $this->element('prueba/testElement');  ?>                    
+                
         <!-- <?= $time = getdate(); print_r($time); ?> -->
                                  
 </div>  

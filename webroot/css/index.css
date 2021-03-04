@@ -110,7 +110,7 @@ body > div > div.flex > div.container.col-md-8.col-md-offset-1 > h3 {
 /* 
  AJAX LOAD */
 /* modal styles and load gift */
-   .modal {
+   .modalloading {
     display:    none;
     position:   fixed;
     z-index:    1000;
@@ -125,12 +125,13 @@ body > div > div.flex > div.container.col-md-8.col-md-offset-1 > h3 {
 }
 
 /* hidde modal*/
-body.loading .modal {
+body.loading .modalloading {
     overflow: hidden;   
 }
 
 /* when modal es called */
-body.loading .modal {
+body.loading .modalloading
+ {
     display: block;
 }
 /* END MODAL AJAX LOAD */

@@ -50,10 +50,7 @@
 
    
 </script> 
-<!-- <script>
-    var csrfToken = <?= json_encode($this->request->param('_csrfToken')) ?>;
-    // ...
-</script> -->
+
 <?php echo $this->Html->script('grid'); ?> 
 
 
@@ -116,4 +113,4 @@
 </div>
 <?php endforeach; ?>
 
-<div class="modal"><!-- Place at bottom of page --></div>
+<div class="modalloading"><!-- Place at bottom of page --></div>

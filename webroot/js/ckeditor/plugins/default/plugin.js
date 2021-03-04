@@ -4,7 +4,7 @@ CKEDITOR.plugins.add( 'default', {
         editor.addCommand( 'insertDefault', {
             exec: function( editor ) {
                 var now = new Date();
-                editor.insertHtml( '<img src="/img/logoempresa.png" ></img> ' );  
+                editor.insertHtml( '<img src="/img/logo-empresa.png" ></img> ' );  
             }
         });
 
