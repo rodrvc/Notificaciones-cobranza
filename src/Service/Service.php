@@ -32,11 +32,6 @@ class Service extends AppController
         $query = $articles->find();
         $query->enableHydration(false);
         $result = $query->toList();
-        // foreach ($query as $row) {
-
-        //      return $row;
-        //      echo '<hr>';
-        // }
         
         return $result;
     } 
@@ -104,7 +99,7 @@ class Service extends AppController
                 if($tipo == 2 ) {
                     $vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
                     $sql =  
-                    $this->getOverdueInvoces($vencimiento , $configuracion->general_maestro_cliente_id );
+                    $this->obtenerFacturasVencidas($vencimiento , $configuracion->general_maestro_cliente_id );
                     $sql->enableHydration(false);
                     $result = $sql->toList();
 
@@ -176,7 +171,7 @@ class Service extends AppController
     }
 
     
-    public function getOverdueInvoces ( $posteriorVencimiento,  $empresa ){
+    public function obtenerFacturasVencidas ( $posteriorVencimiento,  $empresa ){
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])

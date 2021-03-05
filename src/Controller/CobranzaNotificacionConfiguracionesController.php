@@ -68,28 +68,27 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
         // print_r($configuration);
 
-        $this->set('configuration', $configuration); 
-        $this->set('id', $id);
-        $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
+        $this->set('configuration', $configuration); //pasa toda la lista de notificaciones con sus respectivas facturas
+        $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione); // cobranzaNotificacion que se ve 
     }
 
 
 
-
+    //Plantilla para envio de correo 
     public function plantillaCorreos($id = null)
     {
-        $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
+        $notificacion  = $this->CobranzaNotificacionConfiguraciones->get($id, [
             'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
         ]);
 
         $service = new Service();
-        $configuration = $service->evaluatedFactures();
+        $notificacionesYFacturas = $service->evaluatedFactures();
 
         // print_r($configuration);
 
-        return ['configuration' => $configuration ,
+        return ['notificacionesYFacturas' => $notificacionesYFacturas, //pasa toda la lista de notificaciones con sus respectivas facturas
         'id' => $id , 
-        'cobranzaNotificacionConfiguracione' => $cobranzaNotificacionConfiguracione]; 
+        'cobranzaNotificacionConfiguracione' => $notificacion]; //cobranzaNotificacion que se ve 
     }
 
     /**

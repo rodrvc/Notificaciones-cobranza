@@ -84,7 +84,7 @@
                 <?php 
                     $hoy = new DateTime();  
                     $count = 1; 
-                    foreach($configuration[$id]["empresa"]["fact_dtes"] as $value): ?>
+                    foreach($configuration[$cobranzaNotificacionConfiguracione->id]["empresa"]["fact_dtes"] as $value): ?>
                     <?php $fecha_actual = date("d-m-Y"); 
                     $fecha_rango = date_format($value["fecha_vencimiento"] ,"d-m-Y");
                         
