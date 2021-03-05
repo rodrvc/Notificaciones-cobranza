@@ -16,10 +16,11 @@
                 $mensaje = $cobranzaNotificacionConfiguracione->mensaje; 
 
                 if (empty($mensaje) ) {
-                    $mensaje = $this->Html->image("logo-empresa.png", ['fullBase' => true]);
+                    // $mensaje = $this->Html->image("logo-empresa.png", ['fullBase' => true]);
+                    $mensaje = '<img src="cid:company_logo" ></img>'; 
                 }
 
-                echo $this->Html->image('logo.png', ['alt' => 'logo']);
+                
                 //hacer la estructura
                 //la ruta del prugins se asumira que se encuentra en el dir, luego se cambiara donde se guarde la imagen
 

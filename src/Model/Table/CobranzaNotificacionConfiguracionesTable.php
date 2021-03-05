@@ -67,29 +67,29 @@ class CobranzaNotificacionConfiguracionesTable extends Table
     {
         $validator
             ->nonNegativeInteger('id')
-            ->allowEmpty('id', 'create');
+            ->notEmpty('id', 'create');
 
         $validator
             ->nonNegativeInteger('dias')
-            ->allowEmpty('dias');
+            ->notEmpty('dias');
 
         $validator
             ->boolean('activo')
-            ->allowEmpty('activo');
+            ->notEmpty('activo');
 
         $validator
             ->scalar('mensaje')
-            ->allowEmpty('mensaje');
+            ->notEmpty('mensaje');
 
         $validator
             ->scalar('asunto')
             ->maxLength('asunto', 255)
-            ->allowEmpty('asunto');
+            ->notEmpty('asunto');
 
         $validator
             ->scalar('dia_notificacion')
             ->maxLength('dia_notificacion', 45)
-            ->allowEmpty('dia_notificacion');
+            ->notEmpty('dia_notificacion');
 
         return $validator;
     }
