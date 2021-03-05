@@ -16,26 +16,12 @@
                 $mensaje = $cobranzaNotificacionConfiguracione->mensaje; 
 
                 if (empty($mensaje) ) {
-                    // $mensaje = $this->Html->image("logo-empresa.png", ['fullBase' => true]);
-                    // $path = 'D:\laragon\www\notificacion-cobranzas\webroot\img\logo-empresa.png';
-                    
-                    // // Extensión de la imagen
-                    // $type = pathinfo($path, PATHINFO_EXTENSION);
-                    
-                    // // Cargando la imagen
-                    // $data = file_get_contents($path);
-                    
-                    // // Decodificando la imagen en base64
-                    // $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                    
-                    // // Mostrando la imagen
-        
-                    // $mensaje = '<img src="'.$base64.'" ></img>'; 
-                    
+              
+                    //Remplazar por logo en la sesion 
+                    // $urlLogoSession =  $SESSION->LOGO;  
+                    // $urlLogoSession =  "https://w7.pngwing.com/pngs/608/842/png-transparent-logo-trading-company-organization-empresa-fruitwishes-international-corp-blue-company-text.png"; 
+                    $mensaje =  $this->Html->image("logo-empresa.png", ['fullBase' => true]);
 
-                    $urlLogoSession =  "https://w7.pngwing.com/pngs/608/842/png-transparent-logo-trading-company-organization-empresa-fruitwishes-international-corp-blue-company-text.png"; 
-
-                    $mensaje = '<img src="'.$urlLogoSession.'"><img/>'; 
 
                 }
 

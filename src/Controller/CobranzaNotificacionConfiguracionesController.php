@@ -159,15 +159,17 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
             $message = 'error al eliminar';
         }
-        // return $this->redirect(['action' => 'index']);
+
+        exit();
+        return $this->redirect(['action' => 'index']);
         // $this->set('message', $message);
         // $this->viewBuilder()->setOption('serialize', ['message']);
         // $this->set('_serialize', 'cobranzaEstado');
 
-        $this->set([
-            'message' => $message,
-            '_serialize' => ['message']
-        ]);
+        // $this->set([
+        //     'message' => $message,
+        //     '_serialize' => ['message']
+        // ]);
 
         
       

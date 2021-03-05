@@ -65,7 +65,7 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
                                 $mensaje = 'dias de mora';
                             } else {
                                 $diff =  $factura["fecha_vencimiento"]->diff($hoy);
-                                $mensaje = 'dias para vencimiento';
+                                $mensaje = 'dia(s) para vencimiento';
                             }
                             //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
                             //  $diff =  $hoy->diff($value["fecha_vencimiento"]);
