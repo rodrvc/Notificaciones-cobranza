@@ -99,12 +99,7 @@ class Service extends AppController
                 if($tipo == 2 ) {
                     $vencimiento = date("y-m-d", strtotime($fecha_actual."- ".$dias." days"));
                     // $d =  date("d", strtotime($fecha_actual));
-                    $d   = \DateTime::createFromFormat('!d', $dias);
-
-                    $diasNotificacion = $d->format('d'); 
-
-
-                    \debug($diasNotificacion);
+                    
 
                     $sql =  
                     $this->obtenerFacturasVencidas($vencimiento  ,$configuracion->general_maestro_cliente_id );
