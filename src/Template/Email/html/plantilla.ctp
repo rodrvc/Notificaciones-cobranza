@@ -10,7 +10,7 @@ use \DateTime;
 
 
 $d = new CobranzaNotificacionConfiguracionesController();
-$datos = $d->plantillaCorreos(23); // lista notificacionYfacturas & la entidad a comparar
+$datos = $d->plantillaCorreos(1); // lista notificacionYfacturas & la entidad a comparar  
 $notificacion = $datos["cobranzaNotificacionConfiguracione"];
 $notificacionesYFacturas = $datos["notificacionesYFacturas"];
 

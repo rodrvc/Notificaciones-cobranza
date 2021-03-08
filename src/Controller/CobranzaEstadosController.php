@@ -41,6 +41,11 @@ class CobranzaEstadosController extends AppController
     {
         $cobranzaEstados = $this->paginate($this->CobranzaEstados);
 
+
+         
+        
+
+
         $this->set(compact('cobranzaEstados'));
         $this->set('_serialize', 'cobranzaEstados');
     }

@@ -75,7 +75,7 @@ class Service extends AppController
             
             if($dia_envio_notificacion == $todayText){
                 if ($tipo == 1 ){ // si es previo al vencimiento
-
+                   
                     $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
                     $sql =  
                     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
@@ -97,9 +97,17 @@ class Service extends AppController
                 }
 
                 if($tipo == 2 ) {
-                    $vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
+                    $vencimiento = date("y-m-d", strtotime($fecha_actual."- ".$dias." days"));
+                    // $d =  date("d", strtotime($fecha_actual));
+                    $d   = \DateTime::createFromFormat('!d', $dias);
+
+                    $diasNotificacion = $d->format('d'); 
+
+
+                    \debug($diasNotificacion);
+
                     $sql =  
-                    $this->obtenerFacturasVencidas($vencimiento , $configuracion->general_maestro_cliente_id );
+                    $this->obtenerFacturasVencidas($vencimiento  ,$configuracion->general_maestro_cliente_id );
                     $sql->enableHydration(false);
                     $result = $sql->toList();
 
@@ -164,19 +172,22 @@ class Service extends AppController
             ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
-            ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ])
-            ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
+            ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
+            ->where(['FactDtes.general_maestro_cliente_id' => $empresa]); //corresponde a la empresa
             return $query;
 
     }
 
     
-    public function obtenerFacturasVencidas ( $posteriorVencimiento,  $empresa ){
+    public function obtenerFacturasVencidas ( $vencimiento,   $empresa ){
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
+
+        
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
             ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
-            ->where(['FactDtes.fecha_vencimiento <' => $posteriorVencimiento ])
+            ->where(['FactDtes.fecha_vencimiento <' => $vencimiento ]) // tiene que ser menor al vencimiento Más el numero de dia para el aviso
+            // ->where(['FactDtes.fecha_vencimiento <' => $diaActual ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
             return $query;
@@ -184,16 +195,7 @@ class Service extends AppController
     }
 
 
-    public function obtenerClientes(){
-        $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
-
-        $query = $facturasEmitidas->find()->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
-            ->select(['folio', 'general_maestro_persona_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo' ])
-            ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
-            ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]);
-            return $query;
-
-    }
+   
 
 
 

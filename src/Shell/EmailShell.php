@@ -60,7 +60,7 @@ class EmailShell extends Shell
 
 
             //****  EMAIL TEST *****// 
-            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(18);
+            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(1);
             
             $email = new Email();
             $email
