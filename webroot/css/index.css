@@ -119,7 +119,7 @@ body > div > div.flex > div.container.col-md-8.col-md-offset-1 > h3 {
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('/css/images/loader.gif') 
+                url('/notificacion-cobranzas/css/images/loader.gif') 
                 50% 50% 
                 no-repeat;
 }

@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-include 'src/Service/Service.php';
+use App\Service\Service;
 
 /**
  * CobranzaNotificacionConfiguraciones Controller

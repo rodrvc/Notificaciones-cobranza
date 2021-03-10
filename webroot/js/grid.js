@@ -24,13 +24,13 @@ $(document).ready(function () {
             $.ajax({
                 method: "post",
                 data:data, 
-                url: "/cobranza-notificacion-configuraciones/delete/" + data,
+                url: "/notificacion-cobranzas/cobranza-notificacion-configuraciones/delete/" + data,
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
                 },
                 success: function (data, status, xhr) {
                     // delete command is executed.
-                   
+                    console.log(data, status, xhr);
                     commit(true);
                     
                 },  
@@ -41,7 +41,7 @@ $(document).ready(function () {
                 
             }).done(function(){ 
                 
-                commit(true);
+               
             });
     
            
@@ -49,11 +49,16 @@ $(document).ready(function () {
         
     };
     var dataAdapter = new $.jqx.dataAdapter(source, {
+
+        
        
-        downloadComplete: function (data, status, xhr) {     },
+        downloadComplete: function (data, status, xhr) {   
+          },
         loadComplete: function (data) { },
         loadError: function (xhr, status, error) { }
     });
+
+    
     
     //RENDER BUTTONS
     var cellrenderer = function (row, column, value) {
@@ -61,22 +66,28 @@ $(document).ready(function () {
         var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
         var modal = `#myModal` + dataRecord.uid; 
         
+
         
+        function hello(){
+            alert("hello");
+        }
+       
         return `<div class="grid-div-buttons" >` + 
                     '<a href="' + modal + '" class="btn btn-primary" data-toggle="modal" > Ver </a>' + 
-                    `<a href="/cobranza-notificacion-configuraciones/edit/`+ dataRecord.uid + `" class="btn btn-primary ">Editar</a>` + 
-                    "<button id='deleterowbutton' class='deleterowbutton btn btn-danger' value='Delete Selected Row' >borrar</button>" + 
+                    `<a href="/notificacion-cobranzas/cobranza-notificacion-configuraciones/edit/`+ dataRecord.uid + `" class="btn btn-primary ">Editar</a>` + 
+                    "<button id='deleterowbutton' class='deleterowbutton btn btn-danger'  value='Delete Selected Row' >borrar</button>" +
+                  
                 `</div>`
-        
     }
     
     
- 
+    
     
     
     $("#jqxgrid").jqxGrid(
     {
-        
+       
+
         source: dataAdapter,
         width: "100%",
         autorowheight: true,
@@ -133,10 +144,11 @@ $(document).ready(function () {
            }, 
        ]
     });
+   
+    // $(".deleterowbutton").jqxButton();
     
-    $(".deleterowbutton").jqxButton();
-    
-    $(".deleterowbutton").on('click', function () {
+
+    $(".deleterowbutton").on('click' ,  function (e) {
        
         var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
         
@@ -146,14 +158,16 @@ $(document).ready(function () {
             var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
             if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
                 $("#jqxgrid").jqxGrid('deleterow', id);
-             } event.returnValue = false; return false;
                 
-    
-            
+                $("#jqxgrid").jqxGrid({ source: new source });
+                return event.returnValue = true; 
+             } event.returnValue = false; return false;
         }
     });
     
-    
+
+   
+
     
     //MODAL AJAX LOAD
     
@@ -161,7 +175,7 @@ $(document).ready(function () {
     
     $(document).on({
         ajaxStart: function() { $body.addClass("loading");    },
-         ajaxStop: function() { $body.removeClass("loading"); }    
+        ajaxStop: function() { $body.removeClass("loading"); }    
     });
     
     

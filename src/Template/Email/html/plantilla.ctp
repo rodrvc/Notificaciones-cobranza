@@ -2,8 +2,9 @@
 
 namespace App\Controller; 
 
-use App\Cotroller\CobranzaNotificacionConfiguraciones; 
+use App\Controller\CobranzaNotificacionConfiguraciones; 
 use \DateTime;
+use \DateInterval;
 
 //include 'src/Controller/CobranzaNotificacionConfiguracionesController.php';
 
@@ -61,19 +62,23 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
                             $mensaje; 
 
                             if ($notificacion->cobranza_notificacion_tipo_id == 2) {
-                                $diff =  $hoy->diff($factura["fecha_vencimiento"]);
+                                $diff =  $hoy->diff($factura["fecha_vencimiento"] , true);
                                 $mensaje = 'dias de mora';
                             } else {
-                                $diff =  $factura["fecha_vencimiento"]->diff($hoy);
+                                $diff =  $factura["fecha_vencimiento"]->diff($hoy , true);
+
+                                $interval = $diff + 1;
+                                
                                 $mensaje = 'dia(s) para vencimiento';
                             }
                             //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
                             //  $diff =  $hoy->diff($value["fecha_vencimiento"]);
-                            echo $diff->format('%d '.$mensaje);
+                            // echo $diff->format('%d '.$interval);
+                            echo $interval.' '.$mensaje;
                             ?>
                         </td> 
                     </tr>    
-            <?php $count=$count + 1; endforeach; ?>
+            <?php $count=$count + 1; endforeach; ?> 
             </tbody> 
     </table>                             
 </div>
