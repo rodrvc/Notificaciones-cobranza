@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-   
+    
     // prepare the data
     var source =
     {
@@ -18,13 +18,12 @@ $(document).ready(function () {
         deleterow: function (rowid, commit) {
          
             var data = rowid ;
-   
-            console.log()
+            var url = window.location.href;
             
             $.ajax({
                 method: "post",
                 data:data, 
-                url: "/notificacion-cobranzas/cobranza-notificacion-configuraciones/delete/" + data,
+                url: url + "/delete/" + data,
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
                 },
@@ -65,7 +64,7 @@ $(document).ready(function () {
         
         var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
         var modal = `#myModal` + dataRecord.uid; 
-        
+        var url = window.location.href;
 
         
         function hello(){
@@ -74,7 +73,7 @@ $(document).ready(function () {
        
         return `<div class="grid-div-buttons" >` + 
                     '<a href="' + modal + '" class="btn btn-primary" data-toggle="modal" > Ver </a>' + 
-                    `<a href="/notificacion-cobranzas/cobranza-notificacion-configuraciones/edit/`+ dataRecord.uid + `" class="btn btn-primary ">Editar</a>` + 
+                    '<a href="' + url + '/edit/'+ dataRecord.uid + '" class="btn btn-primary ">Editar</a>' + 
                     "<button id='deleterowbutton' class='deleterowbutton btn btn-danger'  value='Delete Selected Row' >borrar</button>" +
                   
                 `</div>`
@@ -159,7 +158,7 @@ $(document).ready(function () {
             if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
                 $("#jqxgrid").jqxGrid('deleterow', id);
                 
-                $("#jqxgrid").jqxGrid({ source: new source });
+             
                 return event.returnValue = true; 
              } event.returnValue = false; return false;
         }
