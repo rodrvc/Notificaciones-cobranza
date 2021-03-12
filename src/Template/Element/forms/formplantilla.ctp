@@ -19,7 +19,7 @@
               
                     //Remplazar por logo en la sesion 
                     // $urlLogoSession =  $SESSION->LOGO;  
-                    // $urlLogoSession =  "https://w7.pngwing.com/pngs/608/842/png-transparent-logo-trading-company-organization-empresa-fruitwishes-international-corp-blue-company-text.png"; 
+                   
                     $mensaje =  $this->Html->image("logo-empresa.png", ['fullBase' => true]);
 
 

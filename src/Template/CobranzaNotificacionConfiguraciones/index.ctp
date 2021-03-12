@@ -65,51 +65,74 @@
             </div>
       <!-- PREVIEW MESAJE -->
         <div class="modal-body">
-            <div class="container">
-                <?= $cobranzaNotificacionConfiguracione->mensaje ?>
+        <div class="container">
+            <?= $cobranzaNotificacionConfiguracione->mensaje ?>
 
 
-            <!-- DTES OF DETAILS -->
+            <!-- DTES DETALLE -->
+           
+            
+        
+                <table style="font-family: arial, sans-serif;border-collapse: collapse;width: 100%; margin-top:150px; " > 
+                    <thead> 
+                        <tr> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Cod. SII</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Documento tipo</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Folio</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha Vencimiento</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha presente</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Diferencia plazo</th> 
+                        </tr> 
+                    </thead> 
+                    <tbody>
+                        <tr> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 1 </th>
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td 
+                                style="border: 1px solid #dddddd;text-align: left;padding: 8px;" > 
+                            </td> 
+                        </tr>  
+                        <tr> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 2 </th>
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td 
+                                style="border: 1px solid #dddddd;text-align: left;padding: 8px;" > 
+                            </td> 
+                        </tr>
+                        <tr> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 3 </th>
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
+                            <td 
+                                style="border: 1px solid #dddddd;text-align: left;padding: 8px;" > 
+                            </td> 
+                        </tr>      
+                    </tbody> 
+                </table>                             
+         
+              
                 
-                <div class="table-responsive mt-10" style="margin-top:200px">
-                    <table class="table table-bordered"> 
-                        <thead> 
-                            <tr> 
-                                <th>#</th> 
-                                <th>Folio</th> 
-                                <th>fecha Vencimiento</th> 
-                                <th>Diferencia plazo</th> 
-                            </tr> 
-                        </thead> 
-                        <tbody> 
-                            <tr> 
-                                <th scope="row">1</th> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                </tr> 
-                            <tr> 
-                                <th scope="row">2</th> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                            </tr> 
-                            <tr> 
-                                <th scope="row">3</th> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                            </tr> 
-                        </tbody> 
-                    </table>
-                </div>
+        
+            <!-- FIN DEL DETALLE -->
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         </div>
     </div>
-  </div>
+</div>
 </div>
 <?php endforeach; ?>
 

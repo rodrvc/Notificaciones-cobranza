@@ -13,17 +13,22 @@ use Cake\I18n\FrozenDate;
 
 
 
-$d = new CobranzaNotificacionConfiguracionesController();
-$datos = $d->plantillaCorreos(45); // lista notificacionYfacturas & la entidad a comparar  
+// $d = new CobranzaNotificacionConfiguracionesController();
+// $datos = $d->plantillaCorreos(45); // lista notificacionYfacturas & la entidad a comparar  
 // $notificacion = $datos["cobranzaNotificacionConfiguracione"];
-$notificacionesYFacturas = $datos["notificacionesYFacturas"];
+// $notificacionesYFacturas = $datos["notificacionesYFacturas"];
 
 ?>
 
 
 
 
-<div  class="cobranzaNotificacionConfiguraciones viewconfcontainer container " style="max-width:1000px; margin:auto;">
+<div style="max-width:1000px; 
+    margin:auto;padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+">
 
     <!-- <h3 style="margin-top:130px; margin-bottom:200px; text-aling:center"> <?= h($notificacion["asunto"]) ?></h3> -->
         <?php 
@@ -31,8 +36,8 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
             echo $mensajeDinamico;  ?>
 
 
-    <hr>
-    <table class="table table-bordered" style="font-family: arial, sans-serif;border-collapse: collapse;width: 100% " > 
+   
+    <table class="table table-bordered" style="font-family: arial, sans-serif;border-collapse: collapse;width: 100%; margin-top:100px; " > 
         <thead> 
             <tr> 
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th> 

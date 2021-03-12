@@ -61,24 +61,28 @@ class EmailShell extends Shell
         
             //****  EMAIL MANUAL TEST*****// 
             $notificacionSeleccionada = null ; 
-            $idNotificacion = 45; //Ingresar Notificacion Manual
+            $idNotificacion = 46; //Ingresar Notificacion Manual
             $ServicioCobranza = new Service(); 
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
 
             foreach ($ListNotificacionCobranzas as $key => &$valor) {
+                
                 if($key == $idNotificacion ){
                     $notificacionSeleccionada = $valor;
+                    $this->out("correo enviado a ".$key); 
                 }
-                else {
-                    $this->out("mail error".$key); 
-                    return; 
-                }
+                
+            }
+
+            if(!isset($notificacionSeleccionada)){
+                $this->out("mail error ".$key); 
+                return; 
             }
             
             
 
-            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(45);
-            $notificacion = $this->CobranzaNotificacionConfiguraciones->get(45);
+            // $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(45);
+            // $notificacion = $this->CobranzaNotificacionConfiguraciones->get(45);
             
             $email = new Email();
             $email

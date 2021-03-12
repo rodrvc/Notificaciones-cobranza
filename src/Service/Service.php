@@ -176,8 +176,6 @@ class Service extends AppController
         $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
         $respuesta["empresa"]["fact_dtes"] = $conf;
 
-      
-
         return $respuesta;  
 
     }

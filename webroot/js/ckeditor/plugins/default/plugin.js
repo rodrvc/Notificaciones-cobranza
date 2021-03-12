@@ -4,7 +4,8 @@ CKEDITOR.plugins.add( 'default', {
         editor.addCommand( 'insertDefault', {
             exec: function( editor ) {
                 var now = new Date();
-                editor.insertHtml( '<img src="https://w7.pngwing.com/pngs/608/842/png-transparent-logo-trading-company-organization-empresa-fruitwishes-international-corp-blue-company-text.png" ></img> ' ); //html logo   
+                var url = window.location.href
+                editor.insertHtml( '<img src="http://localhost:8080/notificacion-cobranzas/img/logo-empresa.png" ></img> ' ); //tiene que cambiar por el logo correspondiente  
             }
         });
 
