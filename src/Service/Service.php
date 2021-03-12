@@ -21,22 +21,6 @@ use Cake\ORM\TableRegistry;
 class Service extends AppController
 
 {   
-
-    public $uses = ["FactDtes"];
-
-
-    //test method //TODO borrar esto
-    public function greeting(){
-        $articles = TableRegistry::getTableLocator()->get('FactDtes');
-        $query = $articles->find();
-        $query->enableHydration(false);
-        $result = $query->toList();
-        
-        return $result;
-    } 
-
-
-
     public function ObtenerCobranzaNotificacionConfiguraciones(){
         $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
         $contador = 0; 
@@ -141,7 +125,7 @@ class Service extends AppController
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
@@ -157,7 +141,7 @@ class Service extends AppController
         
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre',  'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
             ->where(['FactDtes.fecha_vencimiento <' => $vencimiento ]) // tiene que ser menor al vencimiento Más el numero de dia para el aviso
             // ->where(['FactDtes.fecha_vencimiento <' => $diaActual ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
@@ -186,7 +170,8 @@ class Service extends AppController
         $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
         $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
         $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;  ;
-        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona_id"];
+        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona"];
+        $respuesta["empresa"]["nombre"] = $conf[0]["general_maestro_persona"]["nombre"];
         $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
         $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
         $respuesta["empresa"]["fact_dtes"] = $conf;

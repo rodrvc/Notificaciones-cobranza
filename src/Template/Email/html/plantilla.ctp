@@ -6,6 +6,8 @@ use App\Controller\CobranzaNotificacionConfiguraciones;
 use \DateTime;
 use \DateInterval;
 use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 
 //include 'src/Controller/CobranzaNotificacionConfiguracionesController.php';
 
@@ -25,7 +27,7 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
 
     <!-- <h3 style="margin-top:130px; margin-bottom:200px; text-aling:center"> <?= h($notificacion["asunto"]) ?></h3> -->
         <?php 
-             $mensajeDinamico = str_replace( "@@empresa_cliente@@", $notificacion["asunto"] ,$notificacion["mensaje"]);
+             $mensajeDinamico = str_replace( "@@empresa_cliente@@", $notificacion["empresa"]["nombre"] ,$notificacion["mensaje"]);
             echo $mensajeDinamico;  ?>
 
 
@@ -46,7 +48,7 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
         <tbody>
         <?php if(!empty($notificacion["empresa"]["fact_dtes"])): ?>
             <?php 
-                $hoy = new DateTime();  
+                $hoy = new FrozenDate();   
                 $count = 1; 
                     
                     foreach($notificacion["empresa"]["fact_dtes"] as $factura): ?>
@@ -70,21 +72,21 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
 
                                 if ($notificacion["cobranza_notificacion_tipo_id"] == 2) {
 
-                                    $diff =  $hoy->diff($factura["fecha_vencimiento"] , true);
+                                    $diff =  $hoy->diff($factura["fecha_vencimiento"]->setTimezone(new \DateTimeZone('America/Santiago')));
                                     $detalleTiempo = 'dias de mora';
 
                                 } else {
-
-                                    $diff =  $factura["fecha_vencimiento"]->diff($hoy , true);
+                                   
+                                    $frozenTime = new FrozenDate();    
+                                    $diff =  $hoy->diffInDays($factura["fecha_vencimiento"]->setTimezone(new \DateTimeZone('America/Santiago')));
                                     $detalleTiempo = 'dia(s) para vencimiento';
                                     
                                 }
                                 //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
-                                 
-                                
-                                 echo $diff.' '.$detalleTiempo;
+                                    // echo $diff->format('%d days '.$detalleTiempo);
+                                    echo $diff.' '.$detalleTiempo;
                                     // echo $time = Time::now();
-
+                                    
 
                                     // echo $time->isYesterday();
                                 ?>
