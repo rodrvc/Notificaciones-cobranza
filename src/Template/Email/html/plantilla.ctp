@@ -68,21 +68,25 @@ $notificacionesYFacturas = $datos["notificacionesYFacturas"];
                                 $diff;  
                                 $detalleTiempo; 
 
-                                if ($notificacion->cobranza_notificacion_tipo_id == 2) {
+                                if ($notificacion["cobranza_notificacion_tipo_id"] == 2) {
+
                                     $diff =  $hoy->diff($factura["fecha_vencimiento"] , true);
                                     $detalleTiempo = 'dias de mora';
-                                } else {
-                                    $diff =  $factura["fecha_vencimiento"]->diff($hoy , true);
 
-                                    $interval = $diff;
+                                } else {
+
+                                    $diff =  $factura["fecha_vencimiento"]->diff($hoy , true);
+                                    $detalleTiempo = 'dia(s) para vencimiento';
                                     
-                                    $mensaje = 'dia(s) para vencimiento';
                                 }
                                 //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
                                  
-                                 echo $diff->format('%d '.$detalleTiempo);
-                                // echo $diff.' '.$mensaje;
-                                // echo $time->isYesterday();
+                                
+                                 echo $diff.' '.$detalleTiempo;
+                                    // echo $time = Time::now();
+
+
+                                    // echo $time->isYesterday();
                                 ?>
                             </td> 
                         </tr>    

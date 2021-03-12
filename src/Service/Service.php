@@ -185,7 +185,7 @@ class Service extends AppController
         $respuesta["asunto"] = $configuracionActual->asunto;
         $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
         $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
-        $respuesta["tipo"] = ($configuracionActual->cobranza_notificacion_tipo_id == 1) ? "Facturas Prontas a Vencer " : "Facturas Vencidas" ;
+        $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;  ;
         $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona_id"];
         $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
         $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
