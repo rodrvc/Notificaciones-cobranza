@@ -7,7 +7,7 @@ namespace App\Shell;
 use Cake\Console\Shell;
 use Cake\Log\Log; 
 use Cake\Mailer\Email;
-
+use App\Service\Service; 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use App\Controller\Component\EmailComponent; // component 
@@ -58,9 +58,27 @@ class EmailShell extends Shell
             //     $this->out("mail error"); 
             // }
 
+        
+            //****  EMAIL MANUAL TEST*****// 
+            $notificacionSeleccionada = null ; 
+            $idNotificacion = 45; //Ingresar Notificacion Manual
+            $ServicioCobranza = new Service(); 
+            $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
 
-            //****  EMAIL TEST *****// 
-            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(1);
+            foreach ($ListNotificacionCobranzas as $key => &$valor) {
+                if($key == $idNotificacion ){
+                    $notificacionSeleccionada = $valor;
+                }
+                else {
+                    $this->out("mail error".$key); 
+                    return; 
+                }
+            }
+            
+            
+
+            $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(45);
+            $notificacion = $this->CobranzaNotificacionConfiguraciones->get(45);
             
             $email = new Email();
             $email
@@ -73,10 +91,11 @@ class EmailShell extends Shell
                 ]
             ])
             
-
+            
             ->setTemplate( 'plantilla')
             ->setEmailFormat('html')
-            ->setSubject($cobranzaNotificacionConfiguracione->asunto)
+            ->setViewVars(['notificacion' => $notificacionSeleccionada])
+            ->setSubject($notificacionSeleccionada["asunto"])
             ->setTo('rodrigovalladares.dev@gmail.com')
             ->setFrom('app@domain.com')
             ->setDomain('www.example.org')

@@ -8,7 +8,6 @@ namespace App\Service;
 
 use App\Controller\AppController;
 use Cake\ORM\TableLocator;
-
 use Cake\ORM\TableRegistry;
 
 
@@ -119,33 +118,11 @@ class Service extends AppController
                     $data[$configuracion->id] = $this->respuestaOrdenada($result , $configuracion);
 
                 }
-
-                // if ($tipo == 3) {
-                //     $fechaFin = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
-                //     $sql =  
-                //     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
-                //     $sql->enableHydration(false);
-                //     $result = $sql->toList();
-
-                //     $this->obtenerFacturasEntreFechas( $fecha_actual,  $fecha_rango_vencimiento , $configuracion->general_maestro_cliente_id);
-
-                // }
-
-
-
            
             }
         }
         return $data;
 
-      
-
-       
-            
-        $facturas = $this->obtenerFact()->all();
-            
-
-        return $plantillas;
 
 
 
