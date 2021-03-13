@@ -58,7 +58,7 @@ use Cake\I18n\FrozenDate;
                     
                     foreach($notificacion["empresa"]["fact_dtes"] as $factura): ?>
                         <?php
-                            $fecha_actual = date("d-m-Y"); 
+                            $fecha_actual = date("d-m-Y");          
                             $fecha_rango = date_format($factura["fecha_vencimiento"] ,"d-m-Y");
                         ?>
                         <tr> 

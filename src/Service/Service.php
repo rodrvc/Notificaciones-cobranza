@@ -155,26 +155,82 @@ class Service extends AppController
 
 
 
-    public function respuestaOrdenada($conf , $configuracionActual ){
+    public function respuestaOrdenada($fact_dtes , $configuracionActual ){
         $respuesta = array();
         // echo '<pre>';
         // print_r($conf);
         // echo '</pre>';
 
-        if (empty($conf)) {
+        if (empty($fact_dtes)) {
             return ; 
         }
         
-        $respuesta["mensaje"] = $configuracionActual->mensaje;
-        $respuesta["asunto"] = $configuracionActual->asunto;
-        $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
-        $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
-        $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;  ;
-        $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona"];
-        $respuesta["empresa"]["nombre"] = $conf[0]["general_maestro_persona"]["nombre"];
-        $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
-        $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
-        $respuesta["empresa"]["fact_dtes"] = $conf;
+        // $respuesta["mensaje"] = $configuracionActual->mensaje;
+        // $respuesta["asunto"] = $configuracionActual->asunto;
+        // $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
+        // $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
+        // $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;  ;
+        // $respuesta["empresa"]["id"] = $conf[0]["general_maestro_persona"];
+        // $respuesta["empresa"]["nombre"] = $conf[0]["general_maestro_persona"]["nombre"];
+        // $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
+        // $respuesta["empresa"]["rut"] = $conf[0]["general_maestro_persona"]["rut"];
+        // $respuesta["empresa"]["fact_dtes"] = $conf;
+
+            $respuesta["mensaje"] = $configuracionActual->mensaje;
+            $respuesta["asunto"] = $configuracionActual->asunto;
+            $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
+            $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
+            $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;
+            // $respuesta["empresa"]["id"] = $fact_dtes[0]["general_maestro_persona"];
+            // $respuesta["empresa"]["nombre"] = $fact_dtes[0]["general_maestro_persona"]["nombre"];
+            // $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
+            // $respuesta["empresa"]["rut"] = $fact_dtes[0]["general_maestro_persona"]["rut"];
+            
+           
+
+            $datas = [];
+
+            $value; 
+
+            // foreach ($fact_dtes as $key => $value) {
+                    
+            //         empty($datas[$value["general_maestro_persona_id"]]["general_maestro_persona"]) ? $datas[$value["general_maestro_persona_id"]]["general_maestro_persona"] =  $value["general_maestro_persona"] : null;                 
+            //         $datas[$value["general_maestro_persona_id"]]["fact_dtes"] =  $value;
+            //         $datas[$value["general_maestro_persona_id"]]["general_maestro_persona_id"] =  $value["general_maestro_persona_id"]; 
+            // }
+
+            foreach ($fact_dtes as $key => $value) {
+                    
+                empty($datas[$value["general_maestro_persona_id"]]["general_maestro_persona"]) ? $datas[$value["general_maestro_persona_id"]]["general_maestro_persona"] =  $value["general_maestro_persona"] : null;                 
+                //$datas[$value["general_maestro_persona_id"]]["fact_dtes"] =  $value;
+                empty($respuesta["general_maestro_personas"][$value["general_maestro_persona_id"]]) ? $respuesta["general_maestro_personas"][$value["general_maestro_persona_id"]] = $datas[$value["general_maestro_persona_id"]]["general_maestro_persona"] : null ;
+                $respuesta["general_maestro_personas"][$value["general_maestro_persona_id"]]["fact_dtes"][] = $value;
+            
+            
+            }   
+        
+
+
+           
+           
+               
+               
+
+                   
+                    //$respuesta["debug4"][] = $value_fact_dtes[$i]["folio"]; 
+
+                    //$respuesta["empresa"][$fact_dtes[$key_fact_dtes]] =$value_fact_dtes;
+                    // $respuesta["empresa"]["nombre"] = "PEPE";
+
+                    // $respuesta["empresa"][$fact_dtes[$key_fact_dtes]] = $fact_dtes[0]["general_maestro_persona"];
+                    // $respuesta["empresa"]["nombre"] = $fact_dtes[0]["general_maestro_persona"]["nombre"];
+                    // $respuesta["empresa"]["razon_social"] = $conf[0]["general_maestro_persona"]["razon_social"];
+                    // $respuesta["empresa"]["rut"] = $fact_dtes[0]["general_maestro_persona"]["rut"];
+                    // $respuesta["empresa"]["fact_dtes"] = $fact_dtes;
+              
+                
+
+        
 
         return $respuesta;  
 
