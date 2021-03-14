@@ -5,7 +5,8 @@ CKEDITOR.plugins.add( 'default', {
             exec: function( editor ) {
                 var now = new Date();
                 var url = window.location.href
-                editor.insertHtml( '<img src="http://localhost:8080/notificacion-cobranzas/img/logo-empresa.png" ></img> ' ); //tiene que cambiar por el logo correspondiente  
+                editor.insertHtml( '<img src="' + editor.config.customValues.logo + '" ></img> ' ); //tiene que cambiar por el logo correspondiente  
+                
             }
         });
 

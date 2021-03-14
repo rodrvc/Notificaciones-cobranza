@@ -8,6 +8,7 @@ use \DateInterval;
 use Cake\I18n\Time;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\FrozenDate;
+use Cake\I18n;
 
 //include 'src/Controller/CobranzaNotificacionConfiguracionesController.php';
 
@@ -32,11 +33,19 @@ use Cake\I18n\FrozenDate;
 
     <!-- <h3 style="margin-top:130px; margin-bottom:200px; text-aling:center"> <?= h($notificacion["asunto"]) ?></h3> -->
         <?php 
-             $mensajeDinamico = str_replace( "@@empresa_cliente@@", $notificacion["empresa"]["nombre"] ,$notificacion["mensaje"]);
-            echo $mensajeDinamico;  ?>
+                $mensajeDinamico = str_replace( "@@empresa_cliente@@", $notificacion["general_maestro_personas"][$maestro_persona_id]["nombre"] ,$notificacion["mensaje"]);
+                echo $mensajeDinamico; 
+             
+                // echo $notificacion["mensaje"]; 
+                // echo $this->Html->image("logo-empresa.png", ['fullBase' => true]);
+                // echo "<img src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' ></img>";
+                // echo "<img src='cid:logo-empresa' ></img>";
+                // echo "<img src='https://res.cloudinary.com/rodvall/image/upload/v1615693486/logo-empresa_ohltk8.png' ></img>";
+                
+        ?>
 
 
-   
+  
     <table class="table table-bordered" style="font-family: arial, sans-serif;border-collapse: collapse;width: 100%; margin-top:100px; " > 
         <thead> 
             <tr> 
@@ -51,12 +60,12 @@ use Cake\I18n\FrozenDate;
             </tr> 
         </thead> 
         <tbody>
-        <?php if(!empty($notificacion["empresa"]["fact_dtes"])): ?>
+        <?php if(!empty($notificacion["general_maestro_personas"][$maestro_persona_id]["fact_dtes"])): ?>
             <?php 
                 $hoy = new FrozenDate();   
                 $count = 1; 
                     
-                    foreach($notificacion["empresa"]["fact_dtes"] as $factura): ?>
+                    foreach($notificacion["general_maestro_personas"][$maestro_persona_id]["fact_dtes"] as $factura): ?>
                         <?php
                             $fecha_actual = date("d-m-Y");          
                             $fecha_rango = date_format($factura["fecha_vencimiento"] ,"d-m-Y");
@@ -89,7 +98,9 @@ use Cake\I18n\FrozenDate;
                                 }
                                 //  echo $cobranzaNotificacionConfiguracione->cobranza_notificacion_tipo_id; 
                                     // echo $diff->format('%d days '.$detalleTiempo);
-                                    echo $diff.' '.$detalleTiempo;
+                                    echo $diff->format('%d '.$detalleTiempo);
+                                    
+                                    //echo $diff.' '.$detalleTiempo;
                                     // echo $time = Time::now();
                                     
 

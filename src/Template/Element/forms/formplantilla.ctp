@@ -1,4 +1,4 @@
-<?= $this->Form->create($cobranzaNotificacionConfiguracione )?>
+<?= $this->Form->create($cobranzaNotificacionConfiguracione)?>
         <fieldset class="grid-form" >
             <legend class="col-template1-4" ><?= $title_form ?></legend>
             <?php  
@@ -19,12 +19,12 @@
               
                     //Remplazar por logo en la sesion 
                     // $urlLogoSession =  $SESSION->LOGO;  
-                   
-                    $mensaje =  $this->Html->image("logo-empresa.png", ['fullBase' => true]);
+                    $logoSessionARemplazar = "https://res.cloudinary.com/rodvall/image/upload/v1615704703/logo-papeles.png";
+                    $mensaje =  $this->Html->image(  $logoSessionARemplazar ,  ['fullBase' => true]);
 
 
                 }
-
+                
                 
                 //hacer la estructura
                 //la ruta del prugins se asumira que se encuentra en el dir, luego se cambiara donde se guarde la imagen
@@ -39,7 +39,9 @@
                  // Replace the <textarea id="mensaje"> with a CKEditor 4
                  // instance, using default configuration.
                  //this instace not contain image plugins instead use enhaced image plugin
-                     var editor = CKEDITOR.replace( "mensaje" );
+                     var editor = CKEDITOR.replace( "mensaje" ,  { customValues: { logo : "https://res.cloudinary.com/rodvall/image/upload/v1615704703/logo-papeles.png" }, 
+                     extraPlugins: "default"
+                    });
                      console.log("this is a mensaje")
  
                      var url = [] ; 

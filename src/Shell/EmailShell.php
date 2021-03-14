@@ -63,50 +63,49 @@ class EmailShell extends Shell
             $notificacionSeleccionada = null ; 
             $idNotificacion = 47; //Ingresar Notificacion Manual
             $ServicioCobranza = new Service(); 
-            $maestro_persona_id = 1; // manual empresa cliente
+            $maestro_persona_id = 3; // manual empresa cliente
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
-            $i ; 
+            $i = 0 ; 
             foreach ($ListNotificacionCobranzas as $key => &$valor) {
                 // $this->out("se registra notificacion id ".$key." tiene que ser" .$idNotificacion);
                 // $this->out($key);
-                ++ $i;
+           
                 if($key == $idNotificacion ){
-                    $this->out("mail error ".$key);
+                  
                     $notificacionSeleccionada = $valor;
-                    // $this->out("correo enviado a ".$key ); 
+                    $this->out("correo enviado a ".$key ); 
+                    $i = $key;
                 }
             }
-            $this->out("mail error ".$i);
+          
             if(!isset($notificacionSeleccionada)){
-                $this->out("mail error ".$key); 
+                $this->out("mail error ".$i); 
                 return; 
             }
             
             
 
-            // $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get(45);
-            // $notificacion = $this->CobranzaNotificacionConfiguraciones->get(45);
-            
-            // $email = new Email();
-            // $email
-            // ->setAttachments([
-            //     'logo.png' => 
-            //     [
-            //         'file' => 'D:\laragon\www\notificacion-cobranzas\webroot\img\logo-empresa.png' , 
-            //         'mimetype' => 'image/png' , 
-            //         'contentId' => 'logo-empresa'    
-            //     ]
-            // ])
+        
+            $email = new Email();
+            $email
+            ->setAttachments([
+                'logo.png' => 
+                [
+                    'file' => 'D:\laragon\www\notificacion-cobranzas\webroot\img\logo-empresa.png' , 
+                    'mimetype' => 'image/png' , 
+                    'contentId' => 'logo-empresa'    
+                ]
+            ])
             
             
-            // ->setTemplate( 'plantilla')
-            // ->setEmailFormat('html')
-            // ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
-            // ->setSubject($notificacionSeleccionada["asunto"])
-            // ->setTo('rodrigovalladares.dev@gmail.com')
-            // ->setFrom('app@domain.com')
-            // ->setDomain('www.example.org')
-            // ->send();
+            ->setTemplate( 'plantilla')
+            ->setEmailFormat('html')
+            ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
+            ->setSubject($notificacionSeleccionada["asunto"])
+            ->setTo('rodrigovalladares.dev@gmail.com')
+            ->setFrom('app@domain.com')
+            ->setDomain('www.example.org')
+            ->send();
     }
 }
 

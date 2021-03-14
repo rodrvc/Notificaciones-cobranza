@@ -110,7 +110,15 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         }
         $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
         $generalMaestroClientes = $this->CobranzaNotificacionConfiguraciones->GeneralMaestroClientes->find('list', ['limit' => 200]);
+      
         $cobranzaNotificacionTipos = $this->CobranzaNotificacionConfiguraciones->CobranzaNotificacionTipos->find('list', ['limit' => 200]);
+
+        // echo '<pre>';
+        // print_r($generalMaestroClientes->logo);
+        // echo '</pre>';
+
+
+
         $this->set(compact('cobranzaNotificacionConfiguracione', 'generalUsers', 'generalMaestroClientes', 'cobranzaNotificacionTipos'));
     }
 
