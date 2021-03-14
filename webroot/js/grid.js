@@ -66,36 +66,15 @@ $(document).ready(function () {
         var modal = `#myModal` + dataRecord.uid; 
         var url = window.location.href;
 
-        
-        function hello(){
-            alert("hello");
-        }
        
         return `<div class="grid-div-buttons" >` + 
                     '<a href="' + modal + '" class="btn btn-primary" data-toggle="modal" > Ver </a>' + 
                     '<a href="' + url + '/edit/'+ dataRecord.uid + '" class="btn btn-primary ">Editar</a>' + 
-                    "<button id='deleterowbutton' class='deleterowbutton btn btn-danger'  value='Delete Selected Row' >borrar</button>" +
-                  
-                `</div>`
+                    "<button id='deleterowbutton' class='deleterowbutton btn btn-danger'  value='Delete Selected Row' >borrar</button>" + 
+               `</div>`
     }
     
     
-    $(".deleterowbutton").on('click' ,  function (e) {
-       
-        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
-        
-        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
-        if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-            var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
-            if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
-                $("#jqxgrid").jqxGrid('deleterow', id);
-                
-             
-                return event.returnValue = true; 
-             } event.returnValue = false; return false;
-        }
-    });
     
     
     
@@ -116,33 +95,33 @@ $(document).ready(function () {
             
             cellsalign: 'center', align: 'center',
             cellsrenderer: function (row){
-            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
-            var traduccionDia = ""; 
+                var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
+                var traduccionDia = ""; 
             
-            switch (dataRecord.dia_notificacion) {
-                case "Monday":
-                    traduccionDia =  'Lunes';                        
-                    break;
-                case "Tuesday":
-                    traduccionDia =  "Martes"
-                    break; 
-                case "Wednesday":
-                    traduccionDia = "Miercoles"
-                    break; 
-                case "Thursday":
-                    traduccionDia =  "Jueves"
-                    break; 
-                case "Friday":
-                    traduccionDia =  "Viernes"
-                    break; 
-                case "Saturday": 
-                    traduccionDia =  "Sabado"
-                    break; 
-                case "Sunday": 
-                    traduccionDia=  "Domingo";
-                    break; 
-                default:
-                    break;
+                switch (dataRecord.dia_notificacion) {
+                    case "Monday":
+                        traduccionDia =  'Lunes';                        
+                        break;
+                    case "Tuesday":
+                        traduccionDia =  "Martes"
+                        break; 
+                    case "Wednesday":
+                        traduccionDia = "Miercoles"
+                        break; 
+                    case "Thursday":
+                        traduccionDia =  "Jueves"
+                        break; 
+                    case "Friday":
+                        traduccionDia =  "Viernes"
+                        break; 
+                    case "Saturday": 
+                        traduccionDia =  "Sabado"
+                        break; 
+                    case "Sunday": 
+                        traduccionDia=  "Domingo";
+                        break; 
+                    default:
+                        break;
                 }
 
                 return "<div class='text-grid'><div style='flex: 0 0 120px;' >" + traduccionDia + "</div></div>"
@@ -161,7 +140,25 @@ $(document).ready(function () {
     });
    
     // $(".deleterowbutton").jqxButton();
-    
+        
+    $(".deleterowbutton").jqxButton();
+
+    $(".deleterowbutton").on('click' ,  function (e) {
+       
+        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+        
+        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
+        if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+            var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
+            if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
+                $("#jqxgrid").jqxGrid('deleterow', id);
+                
+             
+                return event.returnValue = false; 
+             } event.returnValue = false; return false;
+        }
+    });
 
 
     
@@ -178,7 +175,9 @@ $(document).ready(function () {
         ajaxStop: function() { $body.removeClass("loading"); }    
     });
     
-    
+  
     
     });
-    
+
+  
+
