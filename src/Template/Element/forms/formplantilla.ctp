@@ -19,36 +19,33 @@
               
                     //Remplazar por logo en la sesion 
                     // $urlLogoSession =  $SESSION->LOGO;  
-                    $logoSessionARemplazar = "https://res.cloudinary.com/rodvall/image/upload/v1615704703/logo-papeles.png";
-                    $mensaje =  $this->Html->image(  $logoSessionARemplazar ,  ['fullBase' => true]);
+                    $logo = $sesionEmulada->logo;
+                    
+
+                    $mensaje =  $this->Html->image(  $logo ,  ['fullBase' => true]);
 
 
                 }
                 
                 
-                //hacer la estructura
-                //la ruta del prugins se asumira que se encuentra en el dir, luego se cambiara donde se guarde la imagen
-
-                
-                
+                //**CKEDITOR INSTANCIA**//
                  echo '<textarea name="mensaje" id="mensaje">'
                         .$mensaje.
                        '</textarea>
  
                  <script>
+
                  // Replace the <textarea id="mensaje"> with a CKEditor 4
                  // instance, using default configuration.
                  //this instace not contain image plugins instead use enhaced image plugin
-                     var editor = CKEDITOR.replace( "mensaje" ,  { customValues: { logo : "https://res.cloudinary.com/rodvall/image/upload/v1615704703/logo-papeles.png" }, 
+                     var editor = CKEDITOR.replace( "mensaje" ,  { customValues: { logo : "'.$logo.'" }, 
                      extraPlugins: "default"
                     });
                      console.log("this is a mensaje")
  
-                     var url = [] ; 
+                    var url = [] ; 
                      
-                    
-
-                  </script>';
+                </script>';
                 echo $this->Form->control('general_user_id', ['options' => $generalUsers, 'class' => 'form-control'] );
                 echo $this->Form->control('general_maestro_cliente_id' ,['options' => $generalMaestroClientes ]);         
             ?>

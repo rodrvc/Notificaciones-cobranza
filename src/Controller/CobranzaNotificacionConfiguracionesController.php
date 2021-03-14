@@ -4,6 +4,10 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Service\Service;
 
+//***EMULADOR DE SESION***///
+use Cake\ORM\TableLocator;
+use Cake\ORM\TableRegistry;
+
 /**
  * CobranzaNotificacionConfiguraciones Controller
  *
@@ -98,6 +102,16 @@ class CobranzaNotificacionConfiguracionesController extends AppController
      */
     public function add()
     {
+
+        //***SESSION EMULADA***//
+        $sesionEmulada = $this->obtenerSesionEmulada(2);
+        $this->set('sesionEmulada', $sesionEmulada);
+
+
+        echo '<pre>';
+        print_r($sesionEmulada);
+        echo '</pre>';
+
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->newEntity();
         if ($this->request->is('post')) {
             $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
@@ -183,4 +197,19 @@ class CobranzaNotificacionConfiguracionesController extends AppController
       
         
     }
+
+    public function obtenerSesionEmulada($id){
+        $sesionEmulada = TableRegistry::getTableLocator()->get('GeneralMaestroClientes') ->find()
+        ->where(['id =' => $id])
+        ->first();
+        
+
+        return $sesionEmulada; 
+    }
+
+
+
+
+
+
 }

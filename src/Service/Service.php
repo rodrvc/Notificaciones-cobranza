@@ -21,17 +21,7 @@ use Cake\ORM\TableRegistry;
 class Service extends AppController
 
 {   
-    public function ObtenerCobranzaNotificacionConfiguraciones(){
-        $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
-        $contador = 0; 
-        $queryPlantilla = $plantillasTable->find('all')
-        ->contain(['GeneralMaestroClientes'])
-        ->contain(['GeneralMaestroClientes.GeneralMaestroPersonas'])
-        ->where([ 'activo' => 1])
-        ->order(['CobranzaNotificacionConfiguraciones.id'=> 'ASC']);
-        $plantillas = $queryPlantilla->all();
-        return $plantillas; 
-    }
+   
 
     public function evaluatedFactures(){
    
@@ -112,6 +102,20 @@ class Service extends AppController
 
     }
 
+    public function ObtenerCobranzaNotificacionConfiguraciones(){
+        $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
+        $contador = 0; 
+        $queryPlantilla = $plantillasTable->find('all')
+        ->contain(['GeneralMaestroClientes'])
+        ->contain(['GeneralMaestroClientes.GeneralMaestroPersonas'])
+        ->where([ 'activo' => 1])
+        ->order(['CobranzaNotificacionConfiguraciones.id'=> 'ASC']);
+        $plantillas = $queryPlantilla->all();
+        return $plantillas; 
+    }
+
+
+
     public function obtenerFact(){
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
         $queryFact = $facturasEmitidas->find('all')->contain(['GeneralMaestroClientes'])
@@ -149,10 +153,6 @@ class Service extends AppController
             return $query;
 
     }
-
-
-   
-
 
 
     public function respuestaOrdenada($fact_dtes , $configuracionActual ){

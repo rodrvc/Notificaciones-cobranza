@@ -80,6 +80,22 @@ $(document).ready(function () {
     }
     
     
+    $(".deleterowbutton").on('click' ,  function (e) {
+       
+        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+        
+        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
+        if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+            var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
+            if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
+                $("#jqxgrid").jqxGrid('deleterow', id);
+                
+             
+                return event.returnValue = true; 
+             } event.returnValue = false; return false;
+        }
+    });
     
     
     
@@ -166,20 +182,3 @@ $(document).ready(function () {
     
     });
     
-
-    $(".deleterowbutton").on('click' ,  function (e) {
-       
-        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
-        
-        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
-        if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-            var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-            var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedrowindex);
-            if (confirm(`Esta seguro que desea eliminar el notificacion asunto: ${dataRecord.asunto}?`)) { 
-                $("#jqxgrid").jqxGrid('deleterow', id);
-                
-             
-                return event.returnValue = true; 
-             } event.returnValue = false; return false;
-        }
-    });
