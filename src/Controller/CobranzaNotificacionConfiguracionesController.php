@@ -124,9 +124,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $generalMaestroClientes = $this->CobranzaNotificacionConfiguraciones->GeneralMaestroClientes->find('list', ['limit' => 200]);
         $cobranzaNotificacionTipos = $this->CobranzaNotificacionConfiguraciones->CobranzaNotificacionTipos->find('list', ['limit' => 200]);
 
-        // echo '<pre>';
-        // print_r($generalMaestroClientes->logo);
-        // echo '</pre>';
+
         $this->set(compact('cobranzaNotificacionConfiguracione', 'generalUsers', 'generalMaestroClientes', 'cobranzaNotificacionTipos'));
     }
 
@@ -192,7 +190,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
     public function obtenerSesionEmulada(){
         $sesionEmulada = TableRegistry::getTableLocator()->get('GeneralMaestroClientes') ->find()
-        ->where(['id =' => 2 ])
+        ->where(['id =' => 1 ])
         ->first();
         
 

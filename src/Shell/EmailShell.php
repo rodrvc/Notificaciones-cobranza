@@ -46,56 +46,57 @@ class EmailShell extends Shell
     // SEND EMAIL WITH SHELL
     public function mail()
     {
-        // $to = 'rodrigovalladares.dev@gmail.com'; 
-        // $subject = 'Hi messaje for yu'; 
-        // $message = 'Nothing much '; 
- 
-            // $mail = $this->Email->send_email($to, $subject , $message);
-            // if ($mail) {
-            //     # code...\
-            //     $this->out("MESAJE".$to);
-            // }else {
-            //     $this->out("mail error"); 
-            // }
 
-        
             //****  EMAIL MANUAL TEST*****// 
             $notificacionSeleccionada = null ; 
-            $idNotificacion = 47; //Ingresar Notificacion Manual
+            $idNotificacion = 48; //Ingresar Notificacion Manual
             $ServicioCobranza = new Service(); 
-            $maestro_persona_id = 3; // manual empresa cliente
+            $maestro_persona_id = 2; // manual empresa cliente
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
             $i = 0 ; 
+            $esPosibleEnviar = false; 
+
             foreach ($ListNotificacionCobranzas as $key => &$valor) {
-                // $this->out("se registra notificacion id ".$key." tiene que ser" .$idNotificacion);
-                // $this->out($key);
-           
                 if($key == $idNotificacion ){
-                  
                     $notificacionSeleccionada = $valor;
-                    $this->out("correo enviado a ".$key ); 
+                 
                     $i = $key;
                 }
             }
           
             if(!isset($notificacionSeleccionada)){
-                $this->out("mail error ".$i); 
+                $this->out("Notificacion No Existe "); 
                 return; 
             }
+
+            foreach ($notificacionSeleccionada["general_maestro_personas"] as $key => $value) {
+                $this->out("Esta notificacion puede ser enviada al cliente con id:".$key);
+
+                if($key == $maestro_persona_id){
+                    $esPosibleEnviar = true; 
+                }
+            }
+
+           if (!$esPosibleEnviar) {
+                $this->out("La empresa deseada (id:".$maestro_persona_id.") no tiene notificaciones. No se envia correo");
+                return; 
+           }else { 
+            $this->out("correo enviado notificacion id:". $i." al cliente id:".$maestro_persona_id ); 
+           }
             
             
 
-        
+  
             $email = new Email();
             $email
-            ->setAttachments([
-                'logo.png' => 
-                [
-                    'file' => 'D:\laragon\www\notificacion-cobranzas\webroot\img\logo-empresa.png' , 
-                    'mimetype' => 'image/png' , 
-                    'contentId' => 'logo-empresa'    
-                ]
-            ])
+            // ->setAttachments([
+            //     'logo.png' => 
+            //     [
+            //         'file' => 'D:\laragon\www\notificacion-cobranzas\webroot\img\logo-empresa.png' , 
+            //         'mimetype' => 'image/png' , 
+            //         'contentId' => 'logo-empresa'    
+            //     ]
+            // ])
             
             
             ->setTemplate( 'plantilla')

@@ -91,8 +91,8 @@ use Cake\I18n;
 
                                 } else {
                                    
-                                    $frozenTime = new FrozenDate();    
-                                    $diff =  $hoy->diffInDays($factura["fecha_vencimiento"]->setTimezone(new \DateTimeZone('America/Santiago')));
+                                    // $frozenTime = new FrozenDate();    
+                                    $diff =  $hoy->diff($factura["fecha_vencimiento"]->setTimezone(new \DateTimeZone('America/Santiago')));
                                     $detalleTiempo = 'dia(s) para vencimiento';
                                     
                                 }
