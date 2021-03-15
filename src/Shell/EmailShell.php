@@ -48,9 +48,10 @@ class EmailShell extends Shell
     {
 
             //****  EMAIL MANUAL TEST*****// 
+            $ServicioCobranza = new Service();  
             $notificacionSeleccionada = null ; 
             $idNotificacion = 48; //Ingresar Notificacion Manual
-            $ServicioCobranza = new Service(); 
+            
             $maestro_persona_id = 2; // manual empresa cliente
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
             $i = 0 ; 
