@@ -23,6 +23,7 @@ $(document).ready(function () {
             $.ajax({
                 method: "post",
                 data:data, 
+                cache: false,
                 url: url + "/delete/" + data,
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
@@ -31,6 +32,7 @@ $(document).ready(function () {
                     // delete command is executed.
                     console.log(data, status, xhr);
                     commit(true);
+                    var gridData = data;
                     
                 },  
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -56,6 +58,8 @@ $(document).ready(function () {
         loadComplete: function (data) { },
         loadError: function (xhr, status, error) { }
     });
+
+    dataAdapter.dataBind();
 
     
     
@@ -146,7 +150,7 @@ $(document).ready(function () {
     $(".deleterowbutton").on('click' ,  function (e) {
        
         var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
-        
+        console.log("delete?")
         var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
         if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
             var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
@@ -172,7 +176,7 @@ $(document).ready(function () {
     
     $(document).on({
         ajaxStart: function() { $body.addClass("loading");    },
-        ajaxStop: function() { $body.removeClass("loading"); }    
+        //ajaxStop: function() { $body.removeClass("loading"); }    
     });
     
   
