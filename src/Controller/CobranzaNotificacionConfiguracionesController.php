@@ -61,39 +61,39 @@ class CobranzaNotificacionConfiguracionesController extends AppController
         $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione);
     }
 
-    public function viewconf($id = null)
-    {
-        $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
-            'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
-        ]);
+    // public function viewconf($id = null)
+    // {
+    //     $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
+    //         'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
+    //     ]);
 
-        $service = new Service();
-        $configuration = $service->evaluatedFactures();
+    //     $service = new Service();
+    //     $configuration = $service->evaluatedFactures();
 
-        // print_r($configuration);
+    //     // print_r($configuration);
 
-        $this->set('configuration', $configuration); //pasa toda la lista de notificaciones con sus respectivas facturas
-        $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione); // cobranzaNotificacion que se ve 
-    }
+    //     $this->set('configuration', $configuration); //pasa toda la lista de notificaciones con sus respectivas facturas
+    //     $this->set('cobranzaNotificacionConfiguracione', $cobranzaNotificacionConfiguracione); // cobranzaNotificacion que se ve 
+    // }
 
 
 
     //Plantilla para envio de correo 
-    public function plantillaCorreos($id = null)
-    {
-        $notificacion  = $this->CobranzaNotificacionConfiguraciones->get($id, [
-            'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
-        ]);
+    // public function plantillaCorreos($id = null)
+    // {
+    //     $notificacion  = $this->CobranzaNotificacionConfiguraciones->get($id, [
+    //         'contain' => ['GeneralUsers', 'GeneralMaestroClientes', 'CobranzaNotificacionTipos']
+    //     ]);
 
-        $service = new Service();
-        $notificacionesYFacturas = $service->evaluatedFactures();
+    //     $service = new Service();
+    //     $notificacionesYFacturas = $service->evaluatedFactures();
 
-        // print_r($configuration);
+    //     // print_r($configuration);
 
-        return ['notificacionesYFacturas' => $notificacionesYFacturas, //pasa toda la lista de notificaciones con sus respectivas facturas
-        'id' => $id , 
-        'cobranzaNotificacionConfiguracione' => $notificacion]; //cobranzaNotificacion que se ve 
-    }
+    //     return ['notificacionesYFacturas' => $notificacionesYFacturas, //pasa toda la lista de notificaciones con sus respectivas facturas
+    //     'id' => $id , 
+    //     'cobranzaNotificacionConfiguracione' => $notificacion]; //cobranzaNotificacion que se ve 
+    // }
 
     /**
      * Add method
