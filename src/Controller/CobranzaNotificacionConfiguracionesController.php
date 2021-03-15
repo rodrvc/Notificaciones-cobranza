@@ -104,35 +104,29 @@ class CobranzaNotificacionConfiguracionesController extends AppController
     {
 
         //***SESSION EMULADA***//
-        $sesionEmulada = $this->obtenerSesionEmulada(2);
+        $sesionEmulada = $this->obtenerSesionEmulada();
         $this->set('sesionEmulada', $sesionEmulada);
-
-
-        echo '<pre>';
-        print_r($sesionEmulada);
-        echo '</pre>';
+         //***END SESSION EMULADA***//
 
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->newEntity();
         if ($this->request->is('post')) {
             $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
             if ($this->CobranzaNotificacionConfiguraciones->save($cobranzaNotificacionConfiguracione)) {
-                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
 
+                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
+
             $this->Flash->error(__('The cobranza notificacion configuracione could not be saved. Please, try again.'));
         }
+
         $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
         $generalMaestroClientes = $this->CobranzaNotificacionConfiguraciones->GeneralMaestroClientes->find('list', ['limit' => 200]);
-      
         $cobranzaNotificacionTipos = $this->CobranzaNotificacionConfiguraciones->CobranzaNotificacionTipos->find('list', ['limit' => 200]);
 
         // echo '<pre>';
         // print_r($generalMaestroClientes->logo);
         // echo '</pre>';
-
-
-
         $this->set(compact('cobranzaNotificacionConfiguracione', 'generalUsers', 'generalMaestroClientes', 'cobranzaNotificacionTipos'));
     }
 
@@ -145,21 +139,30 @@ class CobranzaNotificacionConfiguracionesController extends AppController
      */
     public function edit($id = null)
     {
+
+         //***SESSION EMULADA***//
+         $sesionEmulada = $this->obtenerSesionEmulada();
+         $this->set('sesionEmulada', $sesionEmulada);
+          //***END SESSION EMULADA***//
+
         $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->get($id, [
             'contain' => []
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
             if ($this->CobranzaNotificacionConfiguraciones->save($cobranzaNotificacionConfiguracione)) {
-                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
 
+                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The cobranza notificacion configuracione could not be saved. Please, try again.'));
         }
+
         $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
         $generalMaestroClientes = $this->CobranzaNotificacionConfiguraciones->GeneralMaestroClientes->find('list', ['limit' => 200]);
         $cobranzaNotificacionTipos = $this->CobranzaNotificacionConfiguraciones->CobranzaNotificacionTipos->find('list', ['limit' => 200]);
+
         $this->set(compact('cobranzaNotificacionConfiguracione', 'generalUsers', 'generalMaestroClientes', 'cobranzaNotificacionTipos'));
     }
 
@@ -184,23 +187,12 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
         exit();
         return $this->redirect(['action' => 'index']);
-        // $this->set('message', $message);
-        // $this->viewBuilder()->setOption('serialize', ['message']);
-        // $this->set('_serialize', 'cobranzaEstado');
-
-        // $this->set([
-        //     'message' => $message,
-        //     '_serialize' => ['message']
-        // ]);
-
-        
-      
-        
+    
     }
 
-    public function obtenerSesionEmulada($id){
+    public function obtenerSesionEmulada(){
         $sesionEmulada = TableRegistry::getTableLocator()->get('GeneralMaestroClientes') ->find()
-        ->where(['id =' => $id])
+        ->where(['id =' => 2 ])
         ->first();
         
 

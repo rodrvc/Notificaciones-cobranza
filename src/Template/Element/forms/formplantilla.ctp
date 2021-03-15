@@ -14,14 +14,12 @@
                 //  echo $this->Form->control('mensaje', [ 'id' => 'mensaje' ]);
 
                 $mensaje = $cobranzaNotificacionConfiguracione->mensaje; 
-
+                $logo = ''; 
                 if (empty($mensaje) ) {
               
                     //Remplazar por logo en la sesion 
                     // $urlLogoSession =  $SESSION->LOGO;  
                     $logo = $sesionEmulada->logo;
-                    
-
                     $mensaje =  $this->Html->image(  $logo ,  ['fullBase' => true]);
 
 
@@ -38,7 +36,7 @@
                  // Replace the <textarea id="mensaje"> with a CKEditor 4
                  // instance, using default configuration.
                  //this instace not contain image plugins instead use enhaced image plugin
-                     var editor = CKEDITOR.replace( "mensaje" ,  { customValues: { logo : "'.$logo.'" }, 
+                     var editor = CKEDITOR.replace( "mensaje" ,  { customValues: { logo : "'.$sesionEmulada->logo.'" }, 
                      extraPlugins: "default"
                     });
                      console.log("this is a mensaje")
