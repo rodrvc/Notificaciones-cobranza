@@ -113,11 +113,11 @@ class CobranzaNotificacionConfiguracionesController extends AppController
             $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
             if ($this->CobranzaNotificacionConfiguraciones->save($cobranzaNotificacionConfiguracione)) {
 
-                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
+                $this->Flash->success(__('La Notificacion fue guardada exitosamente.'));
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('The cobranza notificacion configuracione could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ha ocurrido un error. Por favor, intente nuevamente'));
         }
 
         $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
@@ -151,10 +151,10 @@ class CobranzaNotificacionConfiguracionesController extends AppController
             $cobranzaNotificacionConfiguracione = $this->CobranzaNotificacionConfiguraciones->patchEntity($cobranzaNotificacionConfiguracione, $this->request->getData());
             if ($this->CobranzaNotificacionConfiguraciones->save($cobranzaNotificacionConfiguracione)) {
 
-                $this->Flash->success(__('The cobranza notificacion configuracione has been saved.'));
+                $this->Flash->success(__('La notificacion ha sido modificada'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The cobranza notificacion configuracione could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ha ocurrido un error. Por favor intente nuevamente'));
         }
 
         $generalUsers = $this->CobranzaNotificacionConfiguraciones->GeneralUsers->find('list', ['limit' => 200]);
