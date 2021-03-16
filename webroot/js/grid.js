@@ -101,8 +101,9 @@ $(document).ready(function () {
             cellsrenderer: function (row){
                 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
                 var traduccionDia = ""; 
-            
+               
                 switch (dataRecord.dia_notificacion) {
+                   
                     case "1":
                         traduccionDia =  'Lunes';                        
                         break;
