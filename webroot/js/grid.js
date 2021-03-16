@@ -32,7 +32,7 @@ $(document).ready(function () {
                     // delete command is executed.
                     console.log(data, status, xhr);
                     commit(true);
-                    var gridData = data;
+                   
                     
                 },  
                 error: function (jqXHR, textStatus, errorThrown) {
