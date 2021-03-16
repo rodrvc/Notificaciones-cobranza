@@ -103,25 +103,25 @@ $(document).ready(function () {
                 var traduccionDia = ""; 
             
                 switch (dataRecord.dia_notificacion) {
-                    case "Monday":
+                    case "1":
                         traduccionDia =  'Lunes';                        
                         break;
-                    case "Tuesday":
+                    case "2":
                         traduccionDia =  "Martes"
                         break; 
-                    case "Wednesday":
+                    case "3":
                         traduccionDia = "Miercoles"
                         break; 
-                    case "Thursday":
+                    case "4":
                         traduccionDia =  "Jueves"
                         break; 
-                    case "Friday":
+                    case "5":
                         traduccionDia =  "Viernes"
                         break; 
-                    case "Saturday": 
+                    case "6": 
                         traduccionDia =  "Sabado"
                         break; 
-                    case "Sunday": 
+                    case "0": 
                         traduccionDia=  "Domingo";
                         break; 
                     default:

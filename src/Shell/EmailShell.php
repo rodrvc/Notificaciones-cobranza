@@ -48,10 +48,7 @@ class EmailShell extends Shell
     {
 
             //****  EMAIL MANUAL TEST*****// 
-            $esHoy= date('w'); 
-            $this->out( $esHoy); 
-            return
-
+          
 
             $ServicioCobranza = new Service();  
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
