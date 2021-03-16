@@ -3,7 +3,7 @@
             <legend class="col-template1-4" ><?= $title_form ?></legend>
             <?php  
                  echo $this->Form->control('cobranza_notificacion_tipo_id', ['options' => $cobranzaNotificacionTipos]);
-                 $days = ['Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles' , 'Thursday' => 'Jueves' , 'Friday' => 'Viernes'];
+                 $days = ['1' => 'Lunes', '2' => 'Martes', '3' => 'Miercoles' , '4' => 'Jueves' , '5' => 'Viernes' , '6 ' => 'Sabado' , '0' => 'Domingo'];
                  
                  echo $this->Form->control('dias', ['input' , 'min' => '0'  ]);              
                  echo $this->Form->control('dia_notificacion', ['options' => $days]);  

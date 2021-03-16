@@ -48,19 +48,26 @@ class EmailShell extends Shell
     {
 
             //****  EMAIL MANUAL TEST*****// 
+            $esHoy= date('w'); 
+            $this->out( $esHoy); 
+            return
+
+
             $ServicioCobranza = new Service();  
+            $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
+
             $notificacionSeleccionada = null ; 
             $idNotificacion = 48; //Ingresar Notificacion Manual
             
-            $maestro_persona_id = 2; // manual empresa cliente
-            $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
+            $maestro_persona_id = 2 ; // manual empresa cliente
+            
             $i = 0 ; 
             $esPosibleEnviar = false; 
 
             foreach ($ListNotificacionCobranzas as $key => &$valor) {
                 if($key == $idNotificacion ){
                     $notificacionSeleccionada = $valor;
-                 
+
                     $i = $key;
                 }
             }
@@ -108,6 +115,59 @@ class EmailShell extends Shell
             ->setFrom('app@domain.com')
             ->setDomain('www.example.org')
             ->send();
+    }
+
+
+
+    public function mails(){
+        $ServicioCobranza = new Service();  
+        $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
+
+
+
+        foreach ($ListNotificacionCobranzas as $id => $notificacion) {
+            $this->out("preparando notificacion id: ".$id ); 
+
+          
+            
+            if (empty($notificacion["general_maestro_personas"])) {
+                # code...
+                $this->out("La notificacion id: ".$id." No tiene facturas en su rango\n " );
+                continue; 
+            }
+
+            foreach ($notificacion["general_maestro_personas"] as $key => $persona) {
+                # code...
+                $this->out("correo de notificacion : ".$id." propietario: ".$notificacion["nombre"] ." envia a su cliente: " .$persona["email"]);
+                //$this->envioCorreo($notificacion, $persona["id"],  $persona["email"]);
+                
+                $email = new Email();
+                $email
+                ->setTemplate( 'plantilla')
+                ->setEmailFormat('html')
+                ->setViewVars(['notificacion' => $notificacion , 'maestro_persona_id' => $key ])
+                ->setSubject($notificacion["asunto"])
+                ->setTo($persona["email"])
+                ->setFrom('app@domain.com')
+                ->setDomain('www.example.org')
+                ->send();
+
+            }
+        }
+    }
+
+
+    public function envioCorreo($notificacionSeleccionada, $maestro_persona_id , $email ){
+        $email = new Email();
+        $email
+        ->setTemplate( 'plantilla')
+        ->setEmailFormat('html')
+        ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
+        ->setSubject($notificacionSeleccionada["asunto"])
+        ->setTo($email)
+        ->setFrom('app@domain.com')
+        ->setDomain('www.example.org')
+        ->send();
     }
 }
 

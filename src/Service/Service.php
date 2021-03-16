@@ -43,10 +43,18 @@ class Service extends AppController
             $fecha_actual = date("y-m-d");
             $dias = $configuracion->dias; // dias rango
             $dia_envio_notificacion = $configuracion->dia_notificacion;//que dia
-            $todayText = date('l'); //se obtiene fecha actual
+            $esHoy= date('w'); //se obtiene fecha actual
+
+
+         
+            
+
+
+
+
             
             
-            if($dia_envio_notificacion == $todayText){
+            if($dia_envio_notificacion == $esHoy){
                 if ($tipo == 1 ){ // si es previo al vencimiento
                    
                     $fecha_rango_vencimiento = date("y-m-d", strtotime($fecha_actual."+ ".$dias." days"));
@@ -129,7 +137,7 @@ class Service extends AppController
         $facturasEmitidas = TableRegistry::getTableLocator()->get('FactDtes');
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ,'GeneralMaestroPersonas.email'])
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
@@ -145,7 +153,7 @@ class Service extends AppController
         
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
-            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre',  'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ])
+            ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre',  'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ,'GeneralMaestroPersonas.email'])
             ->where(['FactDtes.fecha_vencimiento <' => $vencimiento ]) // tiene que ser menor al vencimiento Más el numero de dia para el aviso
             // ->where(['FactDtes.fecha_vencimiento <' => $diaActual ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
