@@ -149,7 +149,7 @@ class Service extends AppController
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
-            ->where(['FactDtes.fact_dte_pagos' => 1 ])
+            ->where(['FactDtes.fact_dte_pago_id' => 1 ])
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]); //corresponde a la empresa
             return $query;
 
@@ -166,7 +166,7 @@ class Service extends AppController
             ->where(['FactDtes.fecha_vencimiento <' => $vencimiento ]) // tiene que ser menor al vencimiento Más el numero de dia para el aviso
             // ->where(['FactDtes.fecha_vencimiento <' => $diaActual ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
-            ->where(['FactDtes.fact_dte_pagos' => 1 ])
+            ->where(['FactDtes.fact_dte_pago_id' => 1 ])
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
             return $query;
 

@@ -155,7 +155,6 @@ class EmailShell extends Shell
                 ->setViewVars(['notificacion' => $notificacion , 'maestro_persona_id' => $key ])
                 ->setSubject($notificacion["asunto"])
                 ->setTo($persona["email"])
-                
                 ->setDomain('www.example.org')
                 ->send();
 
