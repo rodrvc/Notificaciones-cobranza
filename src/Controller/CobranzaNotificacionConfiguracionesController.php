@@ -190,7 +190,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
     public function obtenerSesionEmulada(){
         $sesionEmulada = TableRegistry::getTableLocator()->get('GeneralMaestroClientes') ->find()
-        ->where(['id =' => 1 ])
+        ->where(['id =' => 2 ])
         ->first();
         
 

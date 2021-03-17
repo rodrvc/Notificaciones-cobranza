@@ -146,7 +146,7 @@ class Service extends AppController
 
         $query = $facturasEmitidas->find('all')->contain(['GeneralMaestroPersonas', 'FactDteTipos' ])
             ->select(['folio', 'general_maestro_persona_id', 'general_maestro_cliente_id', 'monto_total', 'fecha_emision','fecha_vencimiento', 'abono' , 'saldo', 'FactDteTipos.nombre', 'FactDteTipos.codigo_SII' , 'GeneralMaestroPersonas.id' , 'GeneralMaestroPersonas.nombre' , 'GeneralMaestroPersonas.rut', 'GeneralMaestroPersonas.razon_social', 'GeneralMaestroPersonas.nombre_fantasia' ,'GeneralMaestroPersonas.email'])
-            ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
+            ->where(['FactDtes.fecha_vencimiento >=' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
             ->where(['FactDtes.fact_dte_pago_id' => 1 ])
