@@ -54,9 +54,9 @@ class EmailShell extends Shell
             $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
 
             $notificacionSeleccionada = null ; 
-            $idNotificacion = 48; //Ingresar Notificacion Manual
+            $idNotificacion = 56; //Ingresar Notificacion Manual
             
-            $maestro_persona_id = 2 ; // manual empresa cliente
+            $maestro_persona_id = 3 ; // manual empresa cliente
             
             $i = 0 ; 
             $esPosibleEnviar = false; 
@@ -75,7 +75,7 @@ class EmailShell extends Shell
             }
 
             foreach ($notificacionSeleccionada["general_maestro_personas"] as $key => $value) {
-                $this->out("Esta notificacion puede ser enviada al cliente con id:".$key);
+                $this->out("Esta notificacion puede ser enviada al cliente con id:".$key ." y con el correo".$value["email"]);
 
                 if($key == $maestro_persona_id){
                     $esPosibleEnviar = true; 
@@ -90,7 +90,7 @@ class EmailShell extends Shell
            }
             
             
-
+           $fromEmail = 'cobranza@'.str_replace(' ', '' , $notificacionSeleccionada["nombre"]) .'.com';
   
             $email = new Email();
             $email
@@ -103,13 +103,15 @@ class EmailShell extends Shell
             //     ]
             // ])
             
-            
+            ->setFrom($fromEmail )
+            ->setBcc($notificacionSeleccionada["email"])
             ->setTemplate( 'plantilla')
             ->setEmailFormat('html')
             ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
             ->setSubject($notificacionSeleccionada["asunto"])
-            ->setTo('rodrigovalladares.dev@gmail.com')
-            ->setFrom('app@domain.com')
+            ->setTo('silver.rvc@gmail.com')
+
+            
             ->setDomain('www.example.org')
             ->send();
     }
@@ -137,15 +139,23 @@ class EmailShell extends Shell
                 # code...
                 $this->out("correo de notificacion : ".$id." propietario: ".$notificacion["nombre"] ." envia a su cliente: " .$persona["email"]);
                 //$this->envioCorreo($notificacion, $persona["id"],  $persona["email"]);
-                
+                $fromEmail = 'cobranza@'.str_replace(' ', '' , $notificacion["razon_social"]) .'.com';
+
+
+
                 $email = new Email();
                 $email
+
+                ->setFrom($fromEmail, 'Sistema Notificacion')
+                ->setBcc($notificacion["email"])
+                ->setDomain('www.example.org')
+                // ->setFrom('example@example.org')
                 ->setTemplate( 'plantilla')
                 ->setEmailFormat('html')
                 ->setViewVars(['notificacion' => $notificacion , 'maestro_persona_id' => $key ])
                 ->setSubject($notificacion["asunto"])
                 ->setTo($persona["email"])
-                ->setFrom('app@domain.com')
+                
                 ->setDomain('www.example.org')
                 ->send();
 
@@ -155,16 +165,19 @@ class EmailShell extends Shell
 
 
     public function envioCorreo($notificacionSeleccionada, $maestro_persona_id , $email ){
-        $email = new Email();
-        $email
-        ->setTemplate( 'plantilla')
-        ->setEmailFormat('html')
-        ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
-        ->setSubject($notificacionSeleccionada["asunto"])
-        ->setTo($email)
-        ->setFrom('app@domain.com')
-        ->setDomain('www.example.org')
-        ->send();
+        // $email = new Email();
+        // $email
+        // ->sender(['rvalladarezc@example.com' => 'NOTIFICACIONES'])
+        // ->setTemplate( 'plantilla')
+        // ->setEmailFormat('html')
+        // ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
+        // ->setSubject($notificacionSeleccionada["asunto"])
+        // ->setTo($email)
+        // ->setFrom('app@domain.com')
+        // ->setDomain('www.example.org')
+        // ->send();
+
+        Email::deliver('rodrigovalladares.dev@gmail.com', 'Subject', 'Message', ['from' => 'me@example.com']);
     }
 }
 

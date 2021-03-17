@@ -114,12 +114,14 @@ class Service extends AppController
         $plantillasTable = TableRegistry::getTableLocator()->get('CobranzaNotificacionConfiguraciones');
         $contador = 0; 
         $queryPlantilla = $plantillasTable->find('all')
-        ->contain(['GeneralMaestroClientes'])
+        ->contain(['GeneralMaestroClientes' ])
         ->contain(['GeneralMaestroClientes.GeneralMaestroPersonas'])
         ->where([ 'activo' => 1])
         ->order(['CobranzaNotificacionConfiguraciones.id'=> 'ASC']);
         $plantillas = $queryPlantilla->all();
         return $plantillas; 
+        //->contain(['GeneralMaestroClientes.GeneralMaestroPersonas'])
+
     }
 
 
@@ -135,6 +137,7 @@ class Service extends AppController
         //     'OR' => [['view_count' => 2], ['view_count' => 3]],
         // ]);
         return $queryFact; 
+
     }
 
     public function obtenerFacturasEntreFechas($dia_Actual, $fecha_rango_vencimiento, $empresa ){
@@ -146,6 +149,7 @@ class Service extends AppController
             ->where(['FactDtes.fecha_vencimiento >' => $dia_Actual ])
             ->where(['FactDtes.fecha_vencimiento <=' => $fecha_rango_vencimiento  ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // si no esta pagada
+            ->where(['FactDtes.fact_dte_pagos' => 1 ])
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]); //corresponde a la empresa
             return $query;
 
@@ -162,6 +166,7 @@ class Service extends AppController
             ->where(['FactDtes.fecha_vencimiento <' => $vencimiento ]) // tiene que ser menor al vencimiento Más el numero de dia para el aviso
             // ->where(['FactDtes.fecha_vencimiento <' => $diaActual ])
             ->where(['FactDtes.fact_dte_movimiento_id ' => 1 ]) // 
+            ->where(['FactDtes.fact_dte_pagos' => 1 ])
             ->where(['FactDtes.general_maestro_cliente_id' => $empresa]);
             return $query;
 
@@ -182,6 +187,9 @@ class Service extends AppController
             $respuesta["asunto"] = $configuracionActual->asunto;
             $respuesta["nombre"] = $configuracionActual->general_maestro_cliente->nombre;
             $respuesta["general_maestro_cliente"] = $configuracionActual->general_maestro_cliente->id;
+            $respuesta["email"] = $configuracionActual->general_maestro_cliente->general_maestro_persona->email;
+            $respuesta["razon_social"] = $configuracionActual->general_maestro_cliente->general_maestro_persona->razon_social;
+
             $respuesta["cobranza_notificacion_tipo_id"] = $configuracionActual->cobranza_notificacion_tipo_id ;
 
      
