@@ -61,11 +61,12 @@ class EmailShell extends Shell
             $i = 0 ; 
             $esPosibleEnviar = false; 
 
-            foreach ($ListNotificacionCobranzas as $key => &$valor) {
-                if($key == $idNotificacion ){
+            //la key son las id de las notificaciones
+            foreach ($ListNotificacionCobranzas as $id => &$valor) {
+                if($id == $idNotificacion ){
                     $notificacionSeleccionada = $valor;
 
-                    $i = $key;
+                    $i = $id;
                 }
             }
           
@@ -88,9 +89,9 @@ class EmailShell extends Shell
            }else { 
             $this->out("correo enviado notificacion id:". $i." al cliente id:".$maestro_persona_id ); 
            }
-            
-            
-           $fromEmail = 'cobranza@'.str_replace(' ', '' , $notificacionSeleccionada["nombre"]) .'.com';
+
+            $nombreMinus = strtolower( $notificacionSeleccionada["nombre"]);
+            $fromEmail = 'cobranza@'.str_replace(' ', '' , $nombreMinus) .'.com';
   
             $email = new Email();
             $email
@@ -123,12 +124,15 @@ class EmailShell extends Shell
         $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
 
 
+        empty($ListNotificacionCobranzas) ? $this->out("No existen notificaciones el dia de hoy ") : null;
+
+
 
         foreach ($ListNotificacionCobranzas as $id => $notificacion) {
             $this->out("preparando notificacion id: ".$id ); 
 
           
-            
+            //array de dtes
             if (empty($notificacion["general_maestro_personas"])) {
                 # code...
                 $this->out("La notificacion id: ".$id." No tiene facturas en su rango\n " );
@@ -137,10 +141,15 @@ class EmailShell extends Shell
 
             foreach ($notificacion["general_maestro_personas"] as $key => $persona) {
                 # code...
-                $this->out("correo de notificacion : ".$id." propietario: ".$notificacion["nombre"] ." envia a su cliente: " .$persona["email"]);
+                $this->out("correo de notificacion : ".$id." propietario: ".$notificacion["razon_social"] ." envia a su cliente: " .$persona["email"]);
                 //$this->envioCorreo($notificacion, $persona["id"],  $persona["email"]);
-                $fromEmail = 'cobranza@'.str_replace(' ', '' , $notificacion["razon_social"]) .'.com';
 
+
+                $nombreMinusculaSistema = strtolower( $notificacion["razon_social"]);
+                $fromEmail = 'cobranza@'.str_replace(' ', '' , $nombreMinusculaSistema) .'.com';
+                
+              
+                
 
 
                 $email = new Email();
