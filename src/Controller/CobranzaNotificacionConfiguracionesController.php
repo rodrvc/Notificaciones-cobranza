@@ -38,7 +38,7 @@ class CobranzaNotificacionConfiguracionesController extends AppController
 
         // DEBUG
         echo '<pre>';
-        print_r($result);
+        // print_r($result);
         echo '</pre>';
         
         $this->set(compact('cobranzaNotificacionConfiguraciones'));

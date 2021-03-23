@@ -120,6 +120,8 @@ class EmailShell extends Shell
 
 
     public function mails(){
+    
+
         $ServicioCobranza = new Service();  
         $ListNotificacionCobranzas = $ServicioCobranza->evaluatedFactures();
 
@@ -156,9 +158,8 @@ class EmailShell extends Shell
                 $email
 
                 ->setFrom($fromEmail, 'Sistema Notificacion')
-                ->setBcc($notificacion["email"])
-                ->setDomain('www.example.org')
-                // ->setFrom('example@example.org')
+                ->setCc($notificacion["email"])
+                ->setDomain('www.abz.cl')
                 ->setTemplate( 'plantilla')
                 ->setEmailFormat('html')
                 ->setViewVars(['notificacion' => $notificacion , 'maestro_persona_id' => $key ])
@@ -172,20 +173,19 @@ class EmailShell extends Shell
     }
 
 
-    public function envioCorreo($notificacionSeleccionada, $maestro_persona_id , $email ){
-        // $email = new Email();
-        // $email
-        // ->sender(['rvalladarezc@example.com' => 'NOTIFICACIONES'])
-        // ->setTemplate( 'plantilla')
-        // ->setEmailFormat('html')
-        // ->setViewVars(['notificacion' => $notificacionSeleccionada , 'maestro_persona_id' => $maestro_persona_id ])
-        // ->setSubject($notificacionSeleccionada["asunto"])
-        // ->setTo($email)
-        // ->setFrom('app@domain.com')
-        // ->setDomain('www.example.org')
-        // ->send();
-
-        Email::deliver('rodrigovalladares.dev@gmail.com', 'Subject', 'Message', ['from' => 'me@example.com']);
+    public function envioCorreo($from, $sender, $domain , $plantilla, $tipe , $viewVars, $subject , $setTo   ){
+        $email = new Email();
+        $email
+        ->setFrom($fromEmail, $sender)
+        ->setCc($notificacion["email"])
+        ->setDomain('www.example.org')
+        // ->setFrom('example@example.org')
+        ->setTemplate( 'plantilla')
+        ->setEmailFormat('html')
+        ->setViewVars(['notificacion' => $notificacion , 'maestro_persona_id' => $key ])
+        ->setSubject($notificacion["asunto"])
+        ->setTo($persona["email"])
+        ->send();
     }
 }
 

@@ -51,10 +51,10 @@ use Cake\I18n;
             <tr> 
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th> 
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Cod. SII</th> 
-                <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Documento tipo</th> 
+                <!-- <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Documento tipo</th>  -->
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Folio</th> 
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha Vencimiento</th> 
-                <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha presente</th> 
+                <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha Envio</th> 
                 <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Diferencia plazo</th> 
                
             </tr> 
@@ -73,7 +73,7 @@ use Cake\I18n;
                         <tr> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"><?=$count?> </th>
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ><?= $factura["fact_dte_tipo"]["codigo_SII"] ?></td> 
-                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ><?= $factura["fact_dte_tipo"]["nombre"] ?></td>                 
+                            <!-- <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ><?= $factura["fact_dte_tipo"]["nombre"] ?></td>                  -->
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ><?= $factura["folio"] ?></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ><?= $fecha_rango ?></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" > <?= $fecha_actual ?></td> 

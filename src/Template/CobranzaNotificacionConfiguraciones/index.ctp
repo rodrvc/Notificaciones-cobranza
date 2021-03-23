@@ -78,10 +78,10 @@
                         <tr> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">#</th> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Cod. SII</th> 
-                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Documento tipo</th> 
+                            <!-- <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Documento tipo</th>  -->
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Folio</th> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha Vencimiento</th> 
-                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha presente</th> 
+                            <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">fecha Emision</th> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Diferencia plazo</th> 
                         </tr> 
                     </thead> 
@@ -89,7 +89,7 @@
                         <tr> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 1 </th>
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
-                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <!-- <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                  -->
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
@@ -100,7 +100,7 @@
                         <tr> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 2 </th>
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
-                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <!-- <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                  -->
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
@@ -111,7 +111,7 @@
                         <tr> 
                             <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;" scope="row"> 3 </th>
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
-                            <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                 
+                            <!-- <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td>                  -->
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
                             <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;" ></td> 
